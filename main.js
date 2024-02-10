@@ -1,48 +1,30 @@
 function moveAndCenterSelectedItem(newSelectedElement) {
     const menuContainer = document.querySelector('.main-menu');
     const indicator = document.querySelector('.selection-indicator');
+    const menuContainerRect = menuContainer.getBoundingClientRect();
+    const selectedElementRect = newSelectedElement.getBoundingClientRect();
 
     if (!newSelectedElement || !menuContainer || !indicator) return;
 
-    // Calculate the offset of the selected item
-    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
-    const menuHalfWidth = menuContainer.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuHalfWidth;
-
-    // Set the new position and width of the indicator
-    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
-    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
-
-    // Smoothly scroll the menu container to center the selected item
-    menuContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
-}
-// Helper function to move the selection indicator
-function moveAndCenterSelectedItem(newSelectedElement) {
-    const menuContainer = document.querySelector('.main-menu');
-    const indicator = document.querySelector('.selection-indicator');
-
-    if (!newSelectedElement || !menuContainer || !indicator) return;
-
-    // Update the indicator's width before calculating the position
-    updateSelectionIndicator(newSelectedElement);
-
-    // Calculate the offset of the selected item
-    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
-    const menuHalfWidth = menuContainer.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuHalfWidth;
+    // Calculate the center position of the selected item relative to the menu container
+    const selectedItemCenterPosition = selectedElementRect.left - menuContainerRect.left + (selectedElementRect.width / 2);
+    const centerOffset = menuContainerRect.width / 2;
+    const scrollPosition = selectedItemCenterPosition - centerOffset;
 
     // Set the new position of the indicator to the selected item
-    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
+    // It's relative to the menu container, not the viewport
+    const indicatorNewLeftPosition = selectedElementRect.left - menuContainerRect.left + menuContainer.scrollLeft;
+    
+    indicator.style.left = `${indicatorNewLeftPosition}px`;
+    indicator.style.width = `${selectedElementRect.width}px`;
 
     // Smoothly scroll the menu container to center the selected item
-    menuContainer.scrollTo({
+    menuContainer.scroll({
         left: scrollPosition,
         behavior: 'smooth'
     });
 }
+
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
