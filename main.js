@@ -1,47 +1,24 @@
-// update Menu Position
-function centerSelectedItem() {
-    const menu = document.querySelector('.main-menu');
-    const selectedItem = menu.querySelector('.select');
-
-    if (!selectedItem) return;
-
-    const selectedItemOffset = selectedItem.offsetLeft + selectedItem.offsetWidth / 2;
-    const menuHalfWidth = menu.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuHalfWidth;
-    
-    // Smooth scroll to the new position
-    menu.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
-}
-
-function moveSelectionIndicator(newSelectedElement) {
+function moveAndCenterSelectedItem(newSelectedElement) {
     const menuContainer = document.querySelector('.main-menu');
     const indicator = document.querySelector('.selection-indicator');
 
-    // Calculate the offset of the selected item and the container's scroll width
-    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
-    const centerOffset = menuContainer.offsetWidth / 2;
+    if (!newSelectedElement || !menuContainer || !indicator) return;
 
-    // Set the new position of the indicator to the selected item
+    // Calculate the offset of the selected item
+    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
+    const menuHalfWidth = menuContainer.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuHalfWidth;
+
+    // Set the new position and width of the indicator
     indicator.style.left = `${newSelectedElement.offsetLeft}px`;
     indicator.style.width = `${newSelectedElement.offsetWidth}px`;
 
-    // Calculate the scroll position to center the indicator
-    const scrollPosition = selectedItemOffset - centerOffset;
-
-    // Smoothly scroll the menu container to the new position
-    menuContainer.scroll({
+    // Smoothly scroll the menu container to center the selected item
+    menuContainer.scrollTo({
         left: scrollPosition,
         behavior: 'smooth'
     });
 }
-
-
-
-
-
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
@@ -106,8 +83,7 @@ function selectPreviousLink() {
         previousLink = findAdjacentAnchor(selected, false);
         updateSelectedLink(selected, previousLink);
     }
-      centerSelectedItem();
-      moveSelectionIndicator(previousLink); // Center the selected item
+      moveAndCenterSelectedItem(previousLink);
 
 }
 
@@ -131,7 +107,7 @@ function selectNextLink() {
         nextLink = findAdjacentAnchor(selected, true);
         updateSelectedLink(selected, nextLink);
     }
-    moveSelectionIndicator(nextLink); // Center the selected item
+    moveAndCenterSelectedItem(nextLink);
 }
 
 
@@ -255,9 +231,8 @@ window.addEventListener('resize', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
-        moveSelectionIndicator(initialSelected);
+        moveAndCenterSelectedItem(initialSelected);
     }
-
     cloneMenuItemsForLoop(); // Call this function to clone items
     centerSelectedItem(); // Center the initially selected item
     adjustLayout();
