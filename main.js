@@ -19,6 +19,30 @@ function moveAndCenterSelectedItem(newSelectedElement) {
         behavior: 'smooth'
     });
 }
+// Helper function to move the selection indicator
+function moveAndCenterSelectedItem(newSelectedElement) {
+    const menuContainer = document.querySelector('.main-menu');
+    const indicator = document.querySelector('.selection-indicator');
+
+    if (!newSelectedElement || !menuContainer || !indicator) return;
+
+    // Update the indicator's width before calculating the position
+    updateSelectionIndicator(newSelectedElement);
+
+    // Calculate the offset of the selected item
+    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
+    const menuHalfWidth = menuContainer.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuHalfWidth;
+
+    // Set the new position of the indicator to the selected item
+    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
+
+    // Smoothly scroll the menu container to center the selected item
+    menuContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
+}
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
@@ -46,7 +70,6 @@ function findAdjacentAnchor(element, isNext) {
     return sibling;
 }
 
-  
 function updateSelectionIndicator(newSelectedElement) {
     const indicator = document.querySelector('.selection-indicator');
 
@@ -108,30 +131,6 @@ function selectNextLink() {
     }
     moveAndCenterSelectedItem(nextLink);
 }
-// Helper function to move the selection indicator
-function moveAndCenterSelectedItem(newSelectedElement) {
-    const menuContainer = document.querySelector('.main-menu');
-    const indicator = document.querySelector('.selection-indicator');
-
-    if (!newSelectedElement || !menuContainer || !indicator) return;
-
-    // Update the indicator's width before calculating the position
-    updateSelectionIndicator(newSelectedElement);
-
-    // Calculate the offset of the selected item
-    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
-    const menuHalfWidth = menuContainer.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuHalfWidth;
-
-    // Set the new position of the indicator to the selected item
-    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
-
-    // Smoothly scroll the menu container to center the selected item
-    menuContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
-}
 
 // Helper function to update the selected link class
 function updateSelectedLink(currentSelected, newSelected) {
@@ -190,26 +189,19 @@ function enterFullScreen() {
     }
 }
 
-// This function would be called in the event that triggers the selection of the next link
-// For example:
-document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
-// Handles key down events for navigation and selection
-
 document.addEventListener('keydown', handleKeyDown);
+
+// Add click event listener to a specific button to trigger clickSelectedLink
+document.getElementById('select-button').addEventListener('click', clickSelectedLink);
 
 // Attach event listeners to all 'trigger' elements
 document.querySelectorAll('.trigger.active.right').forEach(element => {
     element.addEventListener('click', selectNextLink);
 });
 
-
 document.querySelectorAll('.trigger.active.left').forEach(element => {
     element.addEventListener('click', selectPreviousLink);
 });
-
-// Add click event listener to a specific button to trigger clickSelectedLink
-document.getElementById('select-button').addEventListener('click', clickSelectedLink);
-
 
 // Add resize event listener to adjust layout and font size when window is resized
 window.addEventListener('resize', function() {
@@ -217,15 +209,19 @@ window.addEventListener('resize', function() {
     adjustAnchorTextSize();
     centerSelectedItem();
 });
+
+// This function would be called in the event that triggers the selection of the next link
+// For example:
+document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
+// Handles key down events for navigation and selection
+
   
 document.addEventListener('DOMContentLoaded', function() {
+    cloneMenuItemsForLoop();
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
         moveAndCenterSelectedItem(initialSelected);
     }
-    cloneMenuItemsForLoop(); // Call this function to clone items
-    centerSelectedItem(); // Center the initially selected item
     adjustLayout();
     adjustAnchorTextSize();
-    // No need to clone again here as it's already done above
 });
