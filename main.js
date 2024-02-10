@@ -49,12 +49,9 @@ function cloneMenuItemsForLoop() {
     
 
 
-// Finds the adjacent anchor tag (previous or next based on `isNext` flag)
+// Helper function to find the next or previous anchor element
 function findAdjacentAnchor(element, isNext) {
-    // Start with either the next or previous sibling element
     let sibling = isNext ? element.nextElementSibling : element.previousElementSibling;
-
-    // Loop until an anchor tag is found or there are no more sibling elements
     while (sibling && sibling.tagName !== 'A') {
         sibling = isNext ? sibling.nextElementSibling : sibling.previousElementSibling;
     }
@@ -103,27 +100,41 @@ function selectPreviousLink() {
 // Selects the next link in the list
 function selectNextLink() {
     const linksContainer = document.getElementById('link-container');
-    const links = Array.from(linksContainer.getElementsByTagName('a')); // Convert to array for easy manipulation
-    const currentIndex = links.findIndex(link => link.classList.contains('select')); // Get current index
-    const nextIndex = currentIndex >= 0 && currentIndex < links.length - 1 ? currentIndex + 1 : 0; // Calculate next index
-    const newSelected = links[nextIndex]; // Get the new selected link based on nextIndex
-    
-    // Update the 'select' class for the new selected link
-    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
-    newSelected.classList.add('select'); // Add 'select' to the new link
-    
-    // Move the selection indicator to the new selected link
-    moveSelectionIndicator(newSelected);
+    const links = linksContainer.getElementsByTagName('a');
+    const selected = linksContainer.querySelector('.select');
+    const isLastLinkSelected = selected && selected === links[links.length - 1];
+    let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
+
+    // Update selected link and move the selection indicator
+    if (!selected || isLastLinkSelected) {
+        updateSelectedLink(selected, nextLink);
+        moveSelectionIndicator(nextLink); // Move the selection indicator to the next link
+    } else {
+        nextLink = findAdjacentAnchor(selected, true);
+        updateSelectedLink(selected, nextLink);
+        moveSelectionIndicator(nextLink); // Move the selection indicator to the next link
+    }
 }
 
-// This function moves the selection indicator to the selected link
-function moveSelectionIndicator(selectedLink) {
+// Helper function to move the selection indicator
+function moveSelectionIndicator(newSelectedElement) {
     const indicator = document.querySelector('.selection-indicator');
-    const leftPosition = selectedLink.offsetLeft;
-    const width = selectedLink.offsetWidth;
-    
-    indicator.style.left = `${leftPosition}px`;
-    indicator.style.width = `${width}px`;
+    if (!indicator || !newSelectedElement) return;
+
+    const newLeft = newSelectedElement.offsetLeft;
+    const newWidth = newSelectedElement.offsetWidth;
+    indicator.style.left = `${newLeft}px`;
+    indicator.style.width = `${newWidth}px`;
+}
+
+// Helper function to update the selected link class
+function updateSelectedLink(currentSelected, newSelected) {
+    if (currentSelected) {
+        currentSelected.classList.remove('select');
+    }
+    if (newSelected) {
+        newSelected.classList.add('select');
+    }
 }
 
 // This function would be called in the event that triggers the selection of the next link
