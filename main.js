@@ -1,5 +1,4 @@
-  // update Menu Position
-console.log('tester');
+// update Menu Position
 function centerSelectedItem() {
     const menuContainer = document.querySelector('.main-menu');
     const selectedItem = menuContainer.querySelector('.select');
@@ -22,9 +21,8 @@ function cloneMenuItemsForLoop() {
     menu.insertBefore(lastItem, menu.firstChild);
     menu.appendChild(firstItem);
 }
-    // Scroll to the selected item
-    const scrollPosition = selectedItem.offsetLeft - (menu.offsetWidth / 2) + (selectedItem.offsetWidth / 2);
-    menu.scrollLeft = scrollPosition;
+    
+
 
 // Finds the adjacent anchor tag (previous or next based on `isNext` flag)
 function findAdjacentAnchor(element, isNext) {
@@ -169,7 +167,7 @@ document.getElementById('select-button').addEventListener('click', clickSelected
 window.addEventListener('resize', function() {
     adjustLayout();
     adjustAnchorTextSize();
-  centerSelectedItem();
+    centerSelectedItem();
 });
   
   function enterFullScreen() {
@@ -182,7 +180,9 @@ window.addEventListener('resize', function() {
 
   
 document.addEventListener('DOMContentLoaded', function() {
-    // ... your existing code
+    cloneMenuItemsForLoop(); // Call this function to clone items
+    centerSelectedItem(); // Center the initially selected item
+    
     const menu = document.querySelector('.main-menu');
     // Clone first and last items only if necessary
     if (menu) {
@@ -196,8 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-      cloneMenuItemsForLoop(); // Call this function to clone items
-    centerSelectedItem(); // Center the initially selected item
+
     adjustLayout();
     adjustAnchorTextSize();
 });
