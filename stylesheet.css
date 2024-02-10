@@ -12,6 +12,7 @@
     display: inline-flex; /* Use inline-flex if you need to align content within the item */
     align-items: center; /* Aligns the text vertically in the center, if necessary */
     padding: 10px; /* Add padding as needed */
+    white-space: nowrap;
 }
 
   body {
