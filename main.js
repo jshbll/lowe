@@ -3,12 +3,18 @@ function centerSelectedItem() {
     const menuContainer = document.querySelector('.main-menu');
     const selectedItem = menuContainer.querySelector('.select');
 
-    // Ensure selectedItem is defined before trying to use it
-    if (selectedItem) {
-        const scrollPosition = selectedItem.offsetLeft - (menuContainer.offsetWidth / 2) + (selectedItem.offsetWidth / 2);
-        menuContainer.scrollLeft = scrollPosition;
-    }
+    // Check if selectedItem is null to avoid errors in case it's not found
+    if (!selectedItem) return;
+
+    // Calculate the new scroll position to center the selected item
+    const selectedItemOffset = selectedItem.offsetLeft + selectedItem.offsetWidth / 2;
+    const menuContainerCenter = menuContainer.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuContainerCenter;
+
+    // Apply the new scroll position to the menu container
+    menuContainer.scrollLeft = scrollPosition;
 }
+
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
@@ -182,7 +188,7 @@ window.addEventListener('resize', function() {
 document.addEventListener('DOMContentLoaded', function() {
     cloneMenuItemsForLoop(); // Call this function to clone items
     centerSelectedItem(); // Center the initially selected item
-    
+
     const menu = document.querySelector('.main-menu');
     // Clone first and last items only if necessary
     if (menu) {
