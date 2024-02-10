@@ -13,6 +13,9 @@
     align-items: center; /* Aligns the text vertically in the center, if necessary */
     padding: 10px; /* Add padding as needed */
     white-space: nowrap;
+    transform: translateX(15%);
+    width: 16vw;
+    justify-content: center;
 }
 
   body {
