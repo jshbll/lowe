@@ -28,9 +28,23 @@ function moveAndCenterSelectedItem(newSelectedElement) {
 
 function centerSelectedItem(selectedItem) {
     const menu = document.querySelector('.main-menu');
-    const scrollX = selectedItem.getBoundingClientRect().left + (selectedItem.offsetWidth / 2) - (menu.offsetWidth / 2);
-    menu.scrollLeft = scrollX;
+    const menuRect = menu.getBoundingClientRect();
+    const selectedItemRect = selectedItem.getBoundingClientRect();
+
+    // Calculate the center position of the menu and the selected item
+    const menuCenter = menuRect.width / 2;
+    const selectedItemCenter = selectedItemRect.left + selectedItemRect.width / 2;
+
+    // Calculate the new scroll position
+    const scrollLeft = selectedItemCenter - menuCenter + menu.scrollLeft;
+
+    // Scroll the menu to center the selected item
+    menu.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+    });
 }
+
 
 
 // Call this function whenever a new item is selected to center it
@@ -45,12 +59,16 @@ function selectNextLink() {
     const currentSelected = document.querySelector('.main-menu .select');
     const nextLink = findAdjacentAnchor(currentSelected, true) || currentSelected; // Loop back to current if no next
     selectNewItem(nextLink);
+    const selectedLink = document.querySelector('.main-menu .select');
+    centerSelectedItem(selectedLink);
 }
 
 function selectPreviousLink() {
     const currentSelected = document.querySelector('.main-menu .select');
     const prevLink = findAdjacentAnchor(currentSelected, false) || currentSelected; // Loop back to current if no prev
     selectNewItem(prevLink);
+    const selectedLink = document.querySelector('.main-menu .select');
+    centerSelectedItem(selectedLink);
 }
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
