@@ -47,19 +47,27 @@ function moveAndCenterSelectedItem(newSelectedElement) {
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
     const menu = document.querySelector('.main-menu');
-    // Remove previous clones if any to avoid duplicating clones
+
+    // Remove previous clones to avoid duplicating clones
     menu.querySelectorAll('.clone').forEach(clone => clone.remove());
 
-    const firstItem = menu.children[0].cloneNode(true);
-    firstItem.classList.remove('select');
-    firstItem.classList.add('clone'); // Add a class to identify clones
-    const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
-    lastItem.classList.remove('select');
-    lastItem.classList.add('clone'); // Add a class to identify clones
+    // Clone only the menu items, not the selection indicator
+    const menuItems = Array.from(menu.children).filter(child => !child.classList.contains('selection-indicator'));
+    
+    if (menuItems.length > 0) {
+        const firstItem = menuItems[0].cloneNode(true);
+        firstItem.classList.remove('select');
+        firstItem.classList.add('clone'); // Add a class to identify clones
 
-    menu.insertBefore(lastItem, menu.firstChild);
-    menu.appendChild(firstItem);
+        const lastItem = menuItems[menuItems.length - 1].cloneNode(true);
+        lastItem.classList.remove('select');
+        lastItem.classList.add('clone'); // Add a class to identify clones
+
+        menu.insertBefore(lastItem, menu.firstChild);
+        menu.appendChild(firstItem);
+    }
 }
+
 
 // Helper function to find the next or previous anchor element
 function findAdjacentAnchor(element, isNext) {
