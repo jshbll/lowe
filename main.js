@@ -15,6 +15,19 @@ function centerSelectedItem() {
         behavior: 'smooth'
     });
 }
+function moveSelectionIndicator(newSelectedElement) {
+    const indicator = document.querySelector('.selection-indicator');
+
+    const newLeft = newSelectedElement.offsetLeft;
+    const newWidth = newSelectedElement.offsetWidth;
+
+    // Move the indicator to the new item
+    indicator.style.left = `${newLeft}px`;
+    indicator.style.width = `${newWidth}px`; // Adjust the width to match the new item
+}
+
+
+
 
 
 // Clone Menu Items to create an infinite loop effect
@@ -90,24 +103,33 @@ function selectPreviousLink() {
 // Selects the next link in the list
 function selectNextLink() {
     const linksContainer = document.getElementById('link-container');
-    const links = linksContainer.getElementsByTagName('a');
-    const selected = linksContainer.querySelector('.select');
-
-    // Check if the last link is selected
-    const isLastLinkSelected = selected && selected === links[links.length - 1];
-
-    let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
-
-    // If no link is selected or the last link was selected, select the first link
-    if (!selected || isLastLinkSelected) {
-        updateSelectedLink(selected, nextLink);
-    } else {
-        // Find and select the next link
-        nextLink = findAdjacentAnchor(selected, true);
-        updateSelectedLink(selected, nextLink);
-    }
-     centerSelectedItem();
+    const links = Array.from(linksContainer.getElementsByTagName('a')); // Convert to array for easy manipulation
+    const currentIndex = links.findIndex(link => link.classList.contains('select')); // Get current index
+    const nextIndex = currentIndex >= 0 && currentIndex < links.length - 1 ? currentIndex + 1 : 0; // Calculate next index
+    const newSelected = links[nextIndex]; // Get the new selected link based on nextIndex
+    
+    // Update the 'select' class for the new selected link
+    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
+    newSelected.classList.add('select'); // Add 'select' to the new link
+    
+    // Move the selection indicator to the new selected link
+    moveSelectionIndicator(newSelected);
 }
+
+// This function moves the selection indicator to the selected link
+function moveSelectionIndicator(selectedLink) {
+    const indicator = document.querySelector('.selection-indicator');
+    const leftPosition = selectedLink.offsetLeft;
+    const width = selectedLink.offsetWidth;
+    
+    indicator.style.left = `${leftPosition}px`;
+    indicator.style.width = `${width}px`;
+}
+
+// This function would be called in the event that triggers the selection of the next link
+// For example:
+document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
+
 
 
 // Handles key down events for navigation and selection
@@ -188,6 +210,11 @@ window.addEventListener('resize', function() {
   
 
 document.addEventListener('DOMContentLoaded', function() {
+    const selected = document.querySelector('.main-menu .select');
+    if (selected) {
+        moveSelectionIndicator(selected);
+    }
+    
     cloneMenuItemsForLoop(); // Call this function to clone items
     centerSelectedItem(); // Center the initially selected item
     adjustLayout();
