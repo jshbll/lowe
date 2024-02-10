@@ -15,16 +15,29 @@ function centerSelectedItem() {
         behavior: 'smooth'
     });
 }
+
 function moveSelectionIndicator(newSelectedElement) {
+    const menuContainer = document.querySelector('.main-menu');
     const indicator = document.querySelector('.selection-indicator');
 
-    const newLeft = newSelectedElement.offsetLeft;
-    const newWidth = newSelectedElement.offsetWidth;
+    // Calculate the offset of the selected item and the container's scroll width
+    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
+    const centerOffset = menuContainer.offsetWidth / 2;
 
-    // Move the indicator to the new item
-    indicator.style.left = `${newLeft}px`;
-    indicator.style.width = `${newWidth}px`; // Adjust the width to match the new item
+    // Set the new position of the indicator to the selected item
+    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
+    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
+
+    // Calculate the scroll position to center the indicator
+    const scrollPosition = selectedItemOffset - centerOffset;
+
+    // Smoothly scroll the menu container to the new position
+    menuContainer.scroll({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
 }
+
 
 
 
@@ -94,6 +107,7 @@ function selectPreviousLink() {
         updateSelectedLink(selected, previousLink);
     }
       centerSelectedItem();
+      moveSelectionIndicator(previousLink); // Center the selected item
 
 }
 
