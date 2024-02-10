@@ -20,6 +20,7 @@ body {
         }
 }
 
+
 .menu-item {
     color: #3b2525;
     margin-right: 10px; /* Space between menu items */
@@ -27,7 +28,7 @@ body {
     line-height: 160%;
     text-decoration: none;
     transition: background-color .2s; /* Smooth transition for hover effects */
-    display: inline-flex; /* Use inline-flex if you need to align content within the item */
+    display: inline-block; /* Use inline-flex if you need to align content within the item */
     align-items: center; /* Aligns the text vertically in the center, if necessary */
     padding: 10px; /* Add padding as needed */
     white-space: nowrap;
@@ -50,4 +51,6 @@ body {
 .tab-focus-link:focus::before {
     opacity: 1; /* Show caret when link is focused */
 }
+
+
 

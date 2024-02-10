@@ -25,6 +25,24 @@ function moveAndCenterSelectedItem(newSelectedElement) {
     });
 }
 
+function centerSelectedItem(selectedItem) {
+    const menu = document.querySelector('.main-menu');
+    const menuRect = menu.getBoundingClientRect();
+    const selectedItemRect = selectedItem.getBoundingClientRect();
+
+    // Calculate the center position of the menu and the selected item
+    const menuCenter = menuRect.width / 2;
+    const selectedItemCenter = selectedItemRect.left + selectedItemRect.width / 2;
+
+    // Calculate the new scroll position
+    const scrollLeft = selectedItemCenter - menuCenter + menu.scrollLeft;
+
+    // Scroll the menu to center the selected item
+    menu.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+    });
+}
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
@@ -76,50 +94,21 @@ function updateSelectionIndicator(newSelectedElement) {
     }
 }
 
-function selectPreviousLink() {
-    console.log("selectPreviousLink called");
-    const linksContainer = document.getElementById('link-container');
-    const links = linksContainer.getElementsByTagName('a');
-    const selected = linksContainer.querySelector('.select');
 
-    // If the first link is selected, find the last link
-    const isFirstLinkSelected = selected && selected === links[0];
-
-    let previousLink = isFirstLinkSelected ? links[links.length - 1] : findAdjacentAnchor(selected, false);
-
-    // If no link is selected or the first link was selected, select the last link
-    if (!selected || isFirstLinkSelected) {
-        updateSelectedLink(selected, previousLink);
-    } else {
-        // Find and select the previous link
-        previousLink = findAdjacentAnchor(selected, false);
-        updateSelectedLink(selected, previousLink);
-    }
-      moveAndCenterSelectedItem(previousLink);
-
-}
 
 // Selects the next link in the list
 function selectNextLink() {
-    console.log("selectNextLink called");
-    const linksContainer = document.getElementById('link-container');
-    const links = linksContainer.getElementsByTagName('a');
-    const selected = linksContainer.querySelector('.select');
+    const currentSelected = document.querySelector('.main-menu .select');
+    const nextLink = findAdjacentAnchor(currentSelected, true) || currentSelected; // Loop back to current if no next
+    updateSelectedLink(currentSelected, nextLink);
+    centerSelectedItem(nextLink);
+}
 
-    // Check if the last link is selected
-    const isLastLinkSelected = selected && selected === links[links.length - 1];
-
-    let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
-
-    // If no link is selected or the last link was selected, select the first link
-    if (!selected || isLastLinkSelected) {
-        updateSelectedLink(selected, nextLink);
-    } else {
-        // Find and select the next link
-        nextLink = findAdjacentAnchor(selected, true);
-        updateSelectedLink(selected, nextLink);
-    }
-    moveAndCenterSelectedItem(nextLink);
+function selectPreviousLink() {
+    const currentSelected = document.querySelector('.main-menu .select');
+    const prevLink = findAdjacentAnchor(currentSelected, false) || currentSelected; // Loop back to current if no prev
+    updateSelectedLink(currentSelected, prevLink);
+    centerSelectedItem(prevLink);
 }
 
 // Helper function to update the selected link class
@@ -207,11 +196,11 @@ document.querySelector('#trigger-right').addEventListener('click', selectNextLin
 
   
 document.addEventListener('DOMContentLoaded', function() {
-    cloneMenuItemsForLoop();
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
         moveAndCenterSelectedItem(initialSelected);
     }
+    cloneMenuItemsForLoop();
     adjustLayout();
     adjustAnchorTextSize();
 });
