@@ -1,5 +1,5 @@
   // update Menu Position
-
+console.log('tester');
 function centerSelectedItem() {
     const menuContainer = document.querySelector('.main-menu');
     const selectedItem = menuContainer.querySelector('.select');
