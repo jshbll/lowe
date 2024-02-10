@@ -68,7 +68,6 @@ function cloneMenuItemsForLoop() {
     }
 }
 
-
 // Helper function to find the next or previous anchor element
 function findAdjacentAnchor(element, isNext) {
     let sibling = isNext ? element.nextElementSibling : element.previousElementSibling;
@@ -94,21 +93,47 @@ function updateSelectionIndicator(newSelectedElement) {
     }
 }
 
+// Ensure the selection indicator stays centered
+function centerSelectionIndicator() {
+    const menuContainer = document.querySelector('.main-menu');
+    const indicator = document.querySelector('.selection-indicator');
+    const menuContainerRect = menuContainer.getBoundingClientRect();
 
+    // Keep the indicator centered in the menu container
+    indicator.style.left = `${menuContainerRect.width / 2 - indicator.offsetWidth / 2}px`;
+}
 
-// Selects the next link in the list
+// Scroll to center the selected item
+function centerSelectedItem(selectedItem) {
+    const menu = document.querySelector('.main-menu');
+    const selectedItemRect = selectedItem.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+
+    // Calculate the center position of the menu and the selected item
+    const scrollLeft = selectedItemRect.left + selectedItemRect.width / 2 - menuRect.width / 2;
+
+    // Adjust for the current scroll position of the menu
+    menu.scrollLeft = scrollLeft + menu.scrollLeft;
+}
+
+// Call this function whenever a new item is selected to center it
+function selectNewItem(newSelectedElement) {
+    const currentSelected = document.querySelector('.main-menu .select');
+    updateSelectedLink(currentSelected, newSelectedElement);
+    centerSelectedItem(newSelectedElement);
+}
+
+// This function is triggered when the "next" or "previous" navigation is activated
 function selectNextLink() {
     const currentSelected = document.querySelector('.main-menu .select');
     const nextLink = findAdjacentAnchor(currentSelected, true) || currentSelected; // Loop back to current if no next
-    updateSelectedLink(currentSelected, nextLink);
-    centerSelectedItem(nextLink);
+    selectNewItem(nextLink);
 }
 
 function selectPreviousLink() {
     const currentSelected = document.querySelector('.main-menu .select');
     const prevLink = findAdjacentAnchor(currentSelected, false) || currentSelected; // Loop back to current if no prev
-    updateSelectedLink(currentSelected, prevLink);
-    centerSelectedItem(prevLink);
+    selectNewItem(prevLink);
 }
 
 // Helper function to update the selected link class
@@ -189,17 +214,15 @@ window.addEventListener('resize', function() {
     centerSelectedItem();
 });
 
-// This function would be called in the event that triggers the selection of the next link
-// For example:
-document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
-// Handles key down events for navigation and selection
-
-  
+// Initial setup to center the selection indicator and selected item
 document.addEventListener('DOMContentLoaded', function() {
+    centerSelectionIndicator();
+
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
-        moveAndCenterSelectedItem(initialSelected);
+        centerSelectedItem(initialSelected);
     }
+
     cloneMenuItemsForLoop();
     adjustLayout();
     adjustAnchorTextSize();
