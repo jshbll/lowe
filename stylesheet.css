@@ -14,7 +14,7 @@
     padding: 10px; /* Add padding as needed */
     white-space: nowrap;
     transform: translateX(15%);
-    width: 16vw;
+    min-width: 16vw;
     justify-content: center;
 }
 
