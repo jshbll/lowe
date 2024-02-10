@@ -52,5 +52,10 @@ body {
     opacity: 1; /* Show caret when link is focused */
 }
 
-
+.selection-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 
