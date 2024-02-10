@@ -1,0 +1,35 @@
+.main {
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+
+  body {
+      -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  }
+  
+/*.tab-focus-link.select::before {
+    content: url(https://uploads-ssl.webflow.com/65a5b5417e2eb346b6e815a3/65c3a60d7ecbd93573eea575_caret-blue.svg); /* Right-pointing caret character */
+    font-family: 'Roboto', Arial, serif;
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s;     
+	line-height: 0px;
+  /* Smooth transition for appearing/disappearing */
+}
+.select::after {
+    margin-left: 8px; /* Spacing between the link text and the caret */
+}
+
+.tab-focus-link:focus::before {
+    opacity: 1; /* Show caret when link is focused */
+}
+
+ padding-top: constant(safe-area-inset-top); /* for iOS 11.0 */
+    padding-top: env(safe-area-inset-top); /* for iOS 11.2 */
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Add padding for left and right if necessary */
