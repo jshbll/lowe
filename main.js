@@ -36,8 +36,6 @@ function cloneMenuItemsForLoop() {
     menu.insertBefore(lastItem, menu.firstChild);
     menu.appendChild(firstItem);
 }
-    
-
 
 // Helper function to find the next or previous anchor element
 function findAdjacentAnchor(element, isNext) {
@@ -49,12 +47,13 @@ function findAdjacentAnchor(element, isNext) {
 }
 
   
-function updateSelectedLink(currentSelected, newSelected) {
-    const links = document.querySelectorAll('.menu-item');
-    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
-    if (newSelected) {
-        newSelected.classList.add('select'); // Add 'select' to the new link
-    }
+function updateSelectionIndicator(newSelectedElement) {
+    const indicator = document.querySelector('.selection-indicator');
+
+    if (!indicator || !newSelectedElement) return;
+
+    // Update the width of the indicator to match the new selected element
+    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
 }
 
  function clickSelectedLink() {
@@ -109,31 +108,30 @@ function selectNextLink() {
     }
     moveAndCenterSelectedItem(nextLink);
 }
-
-
 // Helper function to move the selection indicator
-function moveSelectionIndicator(newSelectedElement) {
+function moveAndCenterSelectedItem(newSelectedElement) {
     const menuContainer = document.querySelector('.main-menu');
     const indicator = document.querySelector('.selection-indicator');
 
-    // Calculate the offset of the selected item and the container's scroll width
+    if (!newSelectedElement || !menuContainer || !indicator) return;
+
+    // Update the indicator's width before calculating the position
+    updateSelectionIndicator(newSelectedElement);
+
+    // Calculate the offset of the selected item
     const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
-    const centerOffset = menuContainer.offsetWidth / 2;
+    const menuHalfWidth = menuContainer.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuHalfWidth;
 
     // Set the new position of the indicator to the selected item
     indicator.style.left = `${newSelectedElement.offsetLeft}px`;
-    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
 
-    // Calculate the scroll position to center the indicator
-    const scrollPosition = selectedItemOffset - centerOffset;
-
-    // Smoothly scroll the menu container to the new position
-    menuContainer.scroll({
+    // Smoothly scroll the menu container to center the selected item
+    menuContainer.scrollTo({
         left: scrollPosition,
         behavior: 'smooth'
     });
 }
-
 
 // Helper function to update the selected link class
 function updateSelectedLink(currentSelected, newSelected) {
@@ -145,13 +143,6 @@ function updateSelectedLink(currentSelected, newSelected) {
     }
 }
 
-// This function would be called in the event that triggers the selection of the next link
-// For example:
-document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
-
-
-
-// Handles key down events for navigation and selection
 function handleKeyDown(event) {
     // Map of keys to their corresponding actions
     const keyActionMap = {
@@ -167,20 +158,6 @@ function handleKeyDown(event) {
         keyActionMap[event.key]();
     }
 }
-
-document.addEventListener('keydown', handleKeyDown);
-
-
-// Attach event listeners to all 'trigger' elements
-document.querySelectorAll('.trigger.active.right').forEach(element => {
-    element.addEventListener('click', selectNextLink);
-});
-
-
-document.querySelectorAll('.trigger.active.left').forEach(element => {
-    element.addEventListener('click', selectPreviousLink);
-});
-
 
 // Adjusts layout to the viewport height
 function adjustLayout() {
@@ -205,7 +182,30 @@ function clickSelectedLink() {
     }
 }
 
+function enterFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
+        document.documentElement.webkitRequestFullscreen();
+    }
+}
 
+// This function would be called in the event that triggers the selection of the next link
+// For example:
+document.querySelector('#trigger-right').addEventListener('click', selectNextLink);
+// Handles key down events for navigation and selection
+
+document.addEventListener('keydown', handleKeyDown);
+
+// Attach event listeners to all 'trigger' elements
+document.querySelectorAll('.trigger.active.right').forEach(element => {
+    element.addEventListener('click', selectNextLink);
+});
+
+
+document.querySelectorAll('.trigger.active.left').forEach(element => {
+    element.addEventListener('click', selectPreviousLink);
+});
 
 // Add click event listener to a specific button to trigger clickSelectedLink
 document.getElementById('select-button').addEventListener('click', clickSelectedLink);
@@ -218,16 +218,6 @@ window.addEventListener('resize', function() {
     centerSelectedItem();
 });
   
-  function enterFullScreen() {
-    if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-        document.documentElement.webkitRequestFullscreen();
-    }
-}
-
-  
-
 document.addEventListener('DOMContentLoaded', function() {
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
