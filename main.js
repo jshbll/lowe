@@ -1,18 +1,19 @@
 // update Menu Position
 function centerSelectedItem() {
-    const menuContainer = document.querySelector('.main-menu');
-    const selectedItem = menuContainer.querySelector('.select');
+    const menu = document.querySelector('.main-menu');
+    const selectedItem = menu.querySelector('.select');
 
-    // Check if selectedItem is null to avoid errors in case it's not found
     if (!selectedItem) return;
 
-    // Calculate the new scroll position to center the selected item
     const selectedItemOffset = selectedItem.offsetLeft + selectedItem.offsetWidth / 2;
-    const menuContainerCenter = menuContainer.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuContainerCenter;
-
-    // Apply the new scroll position to the menu container
-    menuContainer.scrollLeft = scrollPosition;
+    const menuHalfWidth = menu.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuHalfWidth;
+    
+    // Smooth scroll to the new position
+    menu.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
 }
 
 
