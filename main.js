@@ -19,10 +19,15 @@ function centerSelectedItem() {
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
     const menu = document.querySelector('.main-menu');
+    // Remove previous clones if any to avoid duplicating clones
+    menu.querySelectorAll('.clone').forEach(clone => clone.remove());
+
     const firstItem = menu.children[0].cloneNode(true);
     firstItem.classList.remove('select');
+    firstItem.classList.add('clone'); // Add a class to identify clones
     const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
     lastItem.classList.remove('select');
+    lastItem.classList.add('clone'); // Add a class to identify clones
 
     menu.insertBefore(lastItem, menu.firstChild);
     menu.appendChild(firstItem);
@@ -42,11 +47,6 @@ function findAdjacentAnchor(element, isNext) {
     return sibling;
 }
 
-  function scrollToElement(element) {
-    const menuContainer = document.querySelector('.main-menu');
-    const scrollPosition = element.offsetLeft - (menuContainer.offsetWidth / 2) + (element.offsetWidth / 2);
-    menuContainer.scrollLeft = scrollPosition;
-}
   
 function updateSelectedLink(currentSelected, newSelected) {
     const links = document.querySelectorAll('.menu-item');
@@ -185,24 +185,11 @@ window.addEventListener('resize', function() {
 }
 
   
+
 document.addEventListener('DOMContentLoaded', function() {
     cloneMenuItemsForLoop(); // Call this function to clone items
     centerSelectedItem(); // Center the initially selected item
-
-    const menu = document.querySelector('.main-menu');
-    // Clone first and last items only if necessary
-    if (menu) {
-        const firstItem = menu.children[0].cloneNode(true);
-        firstItem.classList.remove('select');
-        const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
-        lastItem.classList.remove('select');
-    
-        menu.insertBefore(lastItem, menu.firstChild);
-        menu.appendChild(firstItem);
-    }
-
-
-
     adjustLayout();
     adjustAnchorTextSize();
+    // No need to clone again here as it's already done above
 });
