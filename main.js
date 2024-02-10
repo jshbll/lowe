@@ -113,33 +113,51 @@ function selectPreviousLink() {
 
 // Selects the next link in the list
 function selectNextLink() {
+    console.log("selectNextLink called");
     const linksContainer = document.getElementById('link-container');
     const links = linksContainer.getElementsByTagName('a');
     const selected = linksContainer.querySelector('.select');
+
+    // Check if the last link is selected
     const isLastLinkSelected = selected && selected === links[links.length - 1];
+
     let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
 
-    // Update selected link and move the selection indicator
+    // If no link is selected or the last link was selected, select the first link
     if (!selected || isLastLinkSelected) {
         updateSelectedLink(selected, nextLink);
-        moveSelectionIndicator(nextLink); // Move the selection indicator to the next link
     } else {
+        // Find and select the next link
         nextLink = findAdjacentAnchor(selected, true);
         updateSelectedLink(selected, nextLink);
-        moveSelectionIndicator(nextLink); // Move the selection indicator to the next link
     }
+    moveSelectionIndicator(nextLink); // Center the selected item
 }
+
 
 // Helper function to move the selection indicator
 function moveSelectionIndicator(newSelectedElement) {
+    const menuContainer = document.querySelector('.main-menu');
     const indicator = document.querySelector('.selection-indicator');
-    if (!indicator || !newSelectedElement) return;
 
-    const newLeft = newSelectedElement.offsetLeft;
-    const newWidth = newSelectedElement.offsetWidth;
-    indicator.style.left = `${newLeft}px`;
-    indicator.style.width = `${newWidth}px`;
+    // Calculate the offset of the selected item and the container's scroll width
+    const selectedItemOffset = newSelectedElement.offsetLeft + newSelectedElement.offsetWidth / 2;
+    const centerOffset = menuContainer.offsetWidth / 2;
+
+    // Set the new position of the indicator to the selected item
+    indicator.style.left = `${newSelectedElement.offsetLeft}px`;
+    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
+
+    // Calculate the scroll position to center the indicator
+    const scrollPosition = selectedItemOffset - centerOffset;
+
+    // Smoothly scroll the menu container to the new position
+    menuContainer.scroll({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
 }
+
 
 // Helper function to update the selected link class
 function updateSelectedLink(currentSelected, newSelected) {
@@ -235,11 +253,11 @@ window.addEventListener('resize', function() {
   
 
 document.addEventListener('DOMContentLoaded', function() {
-    const selected = document.querySelector('.main-menu .select');
-    if (selected) {
-        moveSelectionIndicator(selected);
+    const initialSelected = document.querySelector('.main-menu .select');
+    if (initialSelected) {
+        moveSelectionIndicator(initialSelected);
     }
-    
+
     cloneMenuItemsForLoop(); // Call this function to clone items
     centerSelectedItem(); // Center the initially selected item
     adjustLayout();
