@@ -26,18 +26,12 @@ function moveAndCenterSelectedItem(newSelectedElement) {
 }
 
 
-// Scroll to center the selected item
 function centerSelectedItem(selectedItem) {
     const menu = document.querySelector('.main-menu');
-    const selectedItemRect = selectedItem.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-
-    // Calculate the center position of the menu and the selected item
-    const scrollLeft = selectedItemRect.left + selectedItemRect.width / 2 - menuRect.width / 2;
-
-    // Adjust for the current scroll position of the menu
-    menu.scrollLeft = scrollLeft + menu.scrollLeft;
+    const scrollX = selectedItem.getBoundingClientRect().left + (selectedItem.offsetWidth / 2) - (menu.offsetWidth / 2);
+    menu.scrollLeft = scrollX;
 }
+
 
 // Call this function whenever a new item is selected to center it
 function selectNewItem(newSelectedElement) {
@@ -198,14 +192,14 @@ window.addEventListener('resize', function() {
 
 // Initial setup to center the selection indicator and selected item
 document.addEventListener('DOMContentLoaded', function() {
-    centerSelectionIndicator();
+    // Clone items and adjust layout as before
+    cloneMenuItemsForLoop();
+    adjustLayout();
+    adjustAnchorTextSize();
 
+    // Initial selection
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
         centerSelectedItem(initialSelected);
     }
-
-    cloneMenuItemsForLoop();
-    adjustLayout();
-    adjustAnchorTextSize();
 });
