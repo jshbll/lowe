@@ -25,6 +25,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Define Functions 
 
+// Function to move the first item to the end of the menu
+function rotateNext() {
+  const menu = document.querySelector('.main-menu');
+  const firstItem = menu.children[0];
+  menu.appendChild(firstItem);  // Move the first item to the end
+  updateSelectedLink(); // Implement this function to update the 'select' class
+  centerSelectedItem(); // Center the new selected item
+}
+
+// Function to move the last item to the beginning of the menu
+function rotatePrevious() {
+  const menu = document.querySelector('.main-menu');
+  const lastItem = menu.children[menu.children.length - 1];
+  menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
+  updateSelectedLink(); // Implement this function to update the 'select' class
+  centerSelectedItem(); // Center the new selected item
+}
+
 
  // Selects the next link in the menu
  function selectNextLink() {
@@ -80,9 +98,14 @@ function centerSelectedItem(selectedItem) {
   
 // Attach event listeners to all 'trigger' elements
  document.querySelectorAll('.trigger.active.right').forEach(element => {
-  element.addEventListener('click', selectNextLink);
-});
+  element.addEventListener('click', function() {
+    rotateNext();     // This will move the first item to the end
+    selectNextLink(); // This will update the selection based on the new order
+  });
+
 
 document.querySelectorAll('.trigger.active.left').forEach(element => {
-  element.addEventListener('click', selectPreviousLink);
-});
+  element.addEventListener('click', function() {
+    rotatePrevious();     // This will move the first item to the end
+    selectPreviousLink(); // This will update the selection based on the new order
+  });
