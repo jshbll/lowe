@@ -105,6 +105,20 @@ document.addEventListener('DOMContentLoaded', function() {
       item.style.width = `${menuItemWidth}px`;
     });
   }
+
+  function adjustAnchorTextSize() {
+    // Adjust the font size of anchor tags based on the viewport width or other criteria
+    // This is just a placeholder function, you'll need to fill it with your own logic
+    const viewportWidth = window.innerWidth;
+    const anchors = document.querySelectorAll('a');
+
+    anchors.forEach(anchor => {
+        // Apply some font resizing logic depending on your requirements
+        // This is a simple example where the font size is set based on the viewport width
+        const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
+        anchor.style.fontSize = `${fontSize}px`;
+    });
+}
   
   // Attach event listeners to all 'trigger' elements
   document.querySelectorAll('.trigger.active.right').forEach(element => {
