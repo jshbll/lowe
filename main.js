@@ -155,6 +155,13 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
     selectPreviousLink(); // This will update the selection based on the new order
   });
 });
+window.addEventListener('resize', function() {
+  // Call the first function
+  equalizeMenuItemWidths();
+  centerSelectedItem(); // Center the new selected item
+  updateSelectedLink(); // Implement this function to update the 'select' class
+  adjustLayout();
+  equalizeMenuItemWidths();
 
 
-window.addEventListener('resize', equalizeMenuItemWidths);
+});
