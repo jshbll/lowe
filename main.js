@@ -39,7 +39,7 @@ function equalizeMenuItemWidths() {
       const equalWidth = totalWidth / menuItems.length;
 
       menuItems.forEach(item => {
-          item.style.min-width = `${equalWidth}px`;
+          item.style.width = `${equalWidth}px`;
       });
   }
 }
