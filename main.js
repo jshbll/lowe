@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+  adjustAnchorTextSize();
   // Select all menu items
   var menuItems = document.querySelectorAll('.menu-item');
 
@@ -29,6 +30,21 @@ document.addEventListener('DOMContentLoaded', function() {
    adjustLayout();
 
 });
+
+
+function adjustAnchorTextSize() {
+  // Adjust the font size of anchor tags based on the viewport width or other criteria
+  // This is just a placeholder function, you'll need to fill it with your own logic
+  const viewportWidth = window.innerWidth;
+  const anchors = document.querySelectorAll('a');
+
+  anchors.forEach(anchor => {
+      // Apply some font resizing logic depending on your requirements
+      // This is a simple example where the font size is set based on the viewport width
+      const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
+      anchor.style.fontSize = `${fontSize}px`;
+  });
+}
 
 function equalizeMenuItemWidths() {
   const menuContainer = document.querySelector('.main-menu');
@@ -159,6 +175,7 @@ window.addEventListener('resize', function() {
   console.log('resize-fired!');
 
   // Call the first function
+  adjustAnchorTextSize();
   equalizeMenuItemWidths();
   centerSelectedItem(); // Center the new selected item
   updateSelectedLink(); // Implement this function to update the 'select' class
