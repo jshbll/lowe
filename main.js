@@ -58,13 +58,13 @@ function selectNewItem(newSelectedElement) {
     centerSelectedItem();
 }
   
-// function updateSelectedLink(currentSelected, newSelected) {
-//     const links = document.querySelectorAll('.menu-item');
-//     links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
-//     if (newSelected) {
-//         newSelected.classList.add('select'); // Add 'select' to the new link
-//     }
-// }
+function updateSelectedLink(currentSelected, newSelected) {
+    const links = document.querySelectorAll('.menu-item');
+    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
+    if (newSelected) {
+        newSelected.classList.add('select'); // Add 'select' to the new link
+    }
+}
 
  function clickSelectedLink() {
     var selectedLink = document.querySelector('#link-container a.select');
