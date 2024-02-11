@@ -1,13 +1,41 @@
 
 // Initialization
 document.addEventListener('DOMContentLoaded', function() {
-    cloneMenuItemsForInfiniteLoop();
-    centerSelectedItem(document.querySelector('.main-menu .select'));
-    attachEventListeners();
-    adjustLayoutAndViewport();
+    // Clone items for the carousel loop
+    cloneMenuItemsForLoop();
+
+    // Adjust layout to fit the viewport height
+    adjustLayout();
+
+    // Adjust the font size of anchor tags based on the viewport width
+    adjustAnchorTextSize();
+
+    // Equalize the widths of menu items
     equalizeMenuItemWidths();
 
+    // Center the initially selected item
+    const initialSelected = document.querySelector('.main-menu .select');
+    if (initialSelected) {
+        centerSelectedItem(initialSelected);
+    }
+
+    // Add event listeners to 'select-button' and resize event
+    document.getElementById('select-button').addEventListener('click', clickSelectedLink);
+    window.addEventListener('resize', function() {
+        adjustLayout();
+        adjustAnchorTextSize();
+        equalizeMenuItemWidths();
+        // Re-center the selected item after resizing
+        const currentlySelected = document.querySelector('.main-menu .select');
+        if (currentlySelected) {
+            centerSelectedItem(currentlySelected);
+        }
+    });
+
+    // Enter full screen mode if needed
+    enterFullScreen();
 });
+
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
