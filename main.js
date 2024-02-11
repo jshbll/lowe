@@ -106,6 +106,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function clickSelectedLink() {
+    // Get the currently selected link using the selector for the 'select' class
+    var selectedLink = document.querySelector('.menu-item.select');
+
+    // If a selected link exists, simulate a click on it
+    if (selectedLink) {
+        selectedLink.click();
+    }
+}
+
+
   function adjustAnchorTextSize() {
     // Adjust the font size of anchor tags based on the viewport width or other criteria
     // This is just a placeholder function, you'll need to fill it with your own logic
