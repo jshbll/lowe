@@ -8,9 +8,6 @@
   const currentIndex = links.findIndex(link => link.classList.contains('select'));
   const nextIndex = (currentIndex + 1) % links.length;
   const nextLink = links[nextIndex];
-
-  updateSelectedLink(links[currentIndex], nextLink);
-  centerSelectedItem(nextLink);
 }
 
 // Selects the previous link in the menu
@@ -20,9 +17,6 @@ function selectPreviousLink() {
   const currentIndex = links.findIndex(link => link.classList.contains('select'));
   const prevIndex = (currentIndex - 1 + links.length) % links.length;
   const prevLink = links[prevIndex];
-
-  updateSelectedLink(links[currentIndex], prevLink);
-  centerSelectedItem(prevLink);
 }
 
 
