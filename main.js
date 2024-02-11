@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Equalize the widths of menu items
     equalizeMenuItemWidths();
+    centerSelectedItem();
 
-    // Center the initially selected item
-    const initialSelected = document.querySelector('.main-menu .select');
-    if (initialSelected) {
-        centerSelectedItem(initialSelected);
-    }
+    // // Center the initially selected item
+    // const initialSelected = document.querySelector('.main-menu .select');
+    // if (initialSelected) {
+    //     centerSelectedItem(initialSelected);
+    // }
 
     // Add event listeners to 'select-button' and resize event
     document.getElementById('select-button').addEventListener('click', clickSelectedLink);
@@ -43,15 +44,27 @@ function findAdjacentAnchor(element, isNext) {
     }
     return sibling;
 }
-
-  
-function updateSelectedLink(currentSelected, newSelected) {
-    const links = document.querySelectorAll('.menu-item');
-    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
-    if (newSelected) {
-        newSelected.classList.add('select'); // Add 'select' to the new link
+// Assuming selectNewItem is a function that sets the 'select' class on the new item
+function selectNewItem(newSelectedElement) {
+    // Remove 'select' class from currently selected element, if it exists
+    const currentlySelected = document.querySelector('.main-menu .select');
+    if (currentlySelected) {
+        currentlySelected.classList.remove('select');
     }
+    // Add 'select' class to the new selected element
+    newSelectedElement.classList.add('select');
+    
+    // Center the new selected item
+    centerSelectedItem();
 }
+  
+// function updateSelectedLink(currentSelected, newSelected) {
+//     const links = document.querySelectorAll('.menu-item');
+//     links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
+//     if (newSelected) {
+//         newSelected.classList.add('select'); // Add 'select' to the new link
+//     }
+// }
 
  function clickSelectedLink() {
     var selectedLink = document.querySelector('#link-container a.select');
@@ -152,21 +165,37 @@ function clickSelectedLink() {
     }
 }
 
-// update Menu Position
-function centerSelectedItem(selectedItem) {
-    const menuContainer = document.querySelector('.main-menu');
-    const selectedItemOffset = selectedItem.offsetLeft;
-    const selectedItemWidth = selectedItem.offsetWidth;
-    const menuContainerWidth = menuContainer.offsetWidth;
+// // update Menu Position
+// function centerSelectedItem(selectedItem) {
+//     const menuContainer = document.querySelector('.main-menu');
+//     const selectedItemOffset = selectedItem.offsetLeft;
+//     const selectedItemWidth = selectedItem.offsetWidth;
+//     const menuContainerWidth = menuContainer.offsetWidth;
 
-    // Calculate the scroll position to center the selected item
-    const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+//     // Calculate the scroll position to center the selected item
+//     const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
-    // Smooth scroll to the new position
-    menuContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
+//     // Smooth scroll to the new position
+//     menuContainer.scrollTo({
+//         left: scrollPosition,
+//         behavior: 'smooth'
+//     });
+// }
+
+// This function will center the selected menu item within the main-menu div.
+function centerSelectedItem() {
+    const menu = document.querySelector('.main-menu');
+    const selectedItem = menu.querySelector('.select');
+
+    // Calculate center position of the selected item
+    const selectedItemRect = selectedItem.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+
+    // Calculate the offset needed to center the item
+    const scrollLeft = selectedItemRect.left + (selectedItemRect.width / 2) - (menuRect.width / 2) - menuRect.left;
+    
+    // Apply the scroll
+    menu.scrollLeft = scrollLeft;
 }
 
 function equalizeMenuItemWidths() {
