@@ -38,7 +38,6 @@ body {
     display: inline-block; /* Use inline-flex if you need to align content within the item */
     align-items: center; /* Aligns the text vertically in the center, if necessary */
     white-space: nowrap;
-    min-width: 16vw;
     justify-content: center;
 }
 
@@ -48,10 +47,6 @@ body {
   user-select: none; /* Standard syntax */
   }
   
-
-.tab-focus-link:focus::before {
-    opacity: 1; /* Show caret when link is focused */
-}
 
 .selection-indicator {
     position: absolute;
