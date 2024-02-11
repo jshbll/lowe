@@ -20,6 +20,12 @@ body {
         }
 }
 
+.main-menu {
+    display: flex;
+    justify-self: center;
+    overflow:hidden;
+    white-space: nowrap;
+}
 
 .menu-item {
     color: #3b2525;

@@ -64,28 +64,22 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Triggers a click event on the currently selected link
-  function clickSelectedLink() {
-    const selectedLink = document.querySelector('#link-container a.select');
-    if (selectedLink) {
-      selectedLink.click();
-    }
-  }
+  function centerSelectedItem() {
+    const menu = document.querySelector('.main-menu');
+    const selectedItem = menu.querySelector('.select');
   
-  // Update Menu Position to center the selected item
-  function centerSelectedItem(selectedItem) {
-    const menuContainer = document.querySelector('.main-menu');
-    const selectedItemOffset = selectedItem.offsetLeft;
-    const selectedItemWidth = selectedItem.offsetWidth;
-    const menuContainerWidth = menuContainer.offsetWidth;
+    // Ensure selectedItem exists
+    if (!selectedItem) return;
   
-    // Calculate the scroll position to center the selected item
-    const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+    // Get the bounding rectangle of the selected item and the menu
+    const selectedItemRect = selectedItem.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
   
-    // Smooth scroll to the new position
-    menuContainer.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth'
-    });
+    // Calculate the scroll position needed to center the selected item
+    const scrollLeft = selectedItem.offsetLeft - (menuRect.width / 2) + (selectedItemRect.width / 2);
+  
+    // Scroll the menu to the calculated position
+    menu.scrollLeft = scrollLeft;
   }
   
   // Equalizes the widths of menu items based on the number of items and container width
