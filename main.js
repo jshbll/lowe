@@ -1,20 +1,20 @@
 // update Menu Position
-function centerSelectedItem() {
-    const menu = document.querySelector('.main-menu');
-    const selectedItem = menu.querySelector('.select');
+function centerSelectedItem(selectedItem) {
+    const menuContainer = document.querySelector('.main-menu');
+    const selectedItemOffset = selectedItem.offsetLeft;
+    const selectedItemWidth = selectedItem.offsetWidth;
+    const menuContainerWidth = menuContainer.offsetWidth;
 
-    if (!selectedItem) return;
+    // Calculate the scroll position to center the selected item
+    const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
-    const selectedItemOffset = selectedItem.offsetLeft + selectedItem.offsetWidth / 2;
-    const menuHalfWidth = menu.offsetWidth / 2;
-    const scrollPosition = selectedItemOffset - menuHalfWidth;
-    
     // Smooth scroll to the new position
-    menu.scrollTo({
+    menuContainer.scrollTo({
         left: scrollPosition,
         behavior: 'smooth'
     });
 }
+
 
 
 // Clone Menu Items to create an infinite loop effect
