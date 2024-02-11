@@ -95,6 +95,9 @@ function selectNextLink() {
     centerSelectedItem(nextLink);
 }
 
+
+
+
 function selectPreviousLink() {
     const menuContainer = document.getElementById('link-container');
     const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
@@ -220,13 +223,6 @@ window.addEventListener('resize', function() {
     centerSelectedItem();
     equalizeMenuItemWidths();
 });
-  
-
-
-  
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -251,32 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
-
-// ... [Keep all other existing functions the same]
-
-function selectNextLink() {
-    const menuContainer = document.getElementById('link-container');
-    const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
-    const currentIndex = links.findIndex(link => link.classList.contains('select'));
-    const nextIndex = (currentIndex + 1) % links.length;
-    const nextLink = links[nextIndex];
-
-    updateSelectedLink(links[currentIndex], nextLink);
-    centerSelectedItem(nextLink);
-}
-
-function selectPreviousLink() {
-    const menuContainer = document.getElementById('link-container');
-    const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
-    const currentIndex = links.findIndex(link => link.classList.contains('select'));
-    const prevIndex = (currentIndex - 1 + links.length) % links.length;
-    const prevLink = links[prevIndex];
-
-    updateSelectedLink(links[currentIndex], prevLink);
-    centerSelectedItem(prevLink);
-}
-
-// ... [Rest of your script]
 
 // Attach event listeners to all 'trigger' elements
 document.querySelectorAll('.trigger.active.right').forEach(element => {
