@@ -1,7 +1,13 @@
 
+// Initialization
+document.addEventListener('DOMContentLoaded', function() {
+    cloneMenuItemsForInfiniteLoop();
+    centerSelectedItem(document.querySelector('.main-menu .select'));
+    attachEventListeners();
+    adjustLayoutAndViewport();
+    equalizeMenuItemWidths();
 
-
-
+});
 
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
@@ -156,6 +162,26 @@ function centerSelectedItem(selectedItem) {
     });
 }
 
+function equalizeMenuItemWidths() {
+    const menuContainer = document.querySelector('.main-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    if (!menuContainer || menuItems.length === 0) return;
+
+    // Calculate the width for each item
+    const menuItemWidth = menuContainer.offsetWidth / menuItems.length;
+
+    // Apply the calculated width to each menu item
+    menuItems.forEach(item => {
+        item.style.width = `${menuItemWidth}px`;
+    });
+}
+
+// Call this function on DOMContentLoaded and on window resize
+document.addEventListener('DOMContentLoaded', equalizeMenuItemWidths);
+window.addEventListener('resize', equalizeMenuItemWidths);
+
+
 // Add click event listener to a specific button to trigger clickSelectedLink
 document.getElementById('select-button').addEventListener('click', clickSelectedLink);
 
@@ -165,6 +191,7 @@ window.addEventListener('resize', function() {
     adjustLayout();
     adjustAnchorTextSize();
     centerSelectedItem();
+    equalizeMenuItemWidths();
 });
   
   function enterFullScreen() {
