@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
    if (initialSelected) {
      centerSelectedItem(initialSelected);
    }
+   centerSelectedItem(); // Center the new selected item
+   updateSelectedLink(); // Implement this function to update the 'select' class
    adjustLayout();
 });
 
