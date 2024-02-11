@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Enter full screen mode if needed
-    enterFullScreen();
+    
 });
 
 
@@ -222,13 +221,7 @@ window.addEventListener('resize', function() {
     equalizeMenuItemWidths();
 });
   
-  function enterFullScreen() {
-    if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-        document.documentElement.webkitRequestFullscreen();
-    }
-}
+
 
   
 
@@ -257,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    enterFullScreen();
 });
 
 // ... [Keep all other existing functions the same]
