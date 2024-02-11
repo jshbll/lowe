@@ -102,11 +102,11 @@ function centerSelectedItem(selectedItem) {
     rotateNext();     // This will move the first item to the end
     selectNextLink(); // This will update the selection based on the new order
   });
- }
+});
 
 document.querySelectorAll('.trigger.active.left').forEach(element => {
   element.addEventListener('click', function() {
     rotatePrevious();     // This will move the first item to the end
     selectPreviousLink(); // This will update the selection based on the new order
   });
-}
+});
