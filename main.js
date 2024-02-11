@@ -1,24 +1,31 @@
-// Equalize the widths of menu items based on the total width of the menu container
-function equalizeMenuItemWidths() {
-    const menuContainer = document.querySelector('.main-menu');
-    const menuItems = document.querySelectorAll('.menu-item');
-    const menuItemWidth = menuContainer.offsetWidth / menuItems.length;
+document.addEventListener('DOMContentLoaded', function() {
+    adjustLayout();
+    adjustAnchorTextSize();
+    equalizeMenuItemWidths();
 
-    menuItems.forEach(item => {
-        item.style.width = `${menuItemWidth}px`;
+    const initialSelected = document.querySelector('.main-menu .select');
+    if (initialSelected) {
+        centerSelectedItem(initialSelected);
+    }
+
+    document.getElementById('select-button').addEventListener('click', clickSelectedLink);
+    window.addEventListener('resize', function() {
+        adjustLayout();
+        adjustAnchorTextSize();
+        equalizeMenuItemWidths();
+        const currentlySelected = document.querySelector('.main-menu .select');
+        if (currentlySelected) {
+            centerSelectedItem(currentlySelected);
+        }
     });
-}
 
-// Centers the selected menu item in the carousel
-function centerSelectedItem(selectedItem) {
-    const menuContainer = document.querySelector('.main-menu');
-    const scrollPosition = selectedItem.offsetLeft - (menuContainer.offsetWidth / 2) + (selectedItem.offsetWidth / 2);
-    menuContainer.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-}
+    enterFullScreen();
+});
 
-// Selects the next link in the carousel
+// ... [Keep all other existing functions the same]
+
 function selectNextLink() {
-    const menuContainer = document.querySelector('.main-menu');
+    const menuContainer = document.getElementById('link-container');
     const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
     const currentIndex = links.findIndex(link => link.classList.contains('select'));
     const nextIndex = (currentIndex + 1) % links.length;
@@ -28,9 +35,8 @@ function selectNextLink() {
     centerSelectedItem(nextLink);
 }
 
-// Selects the previous link in the carousel
 function selectPreviousLink() {
-    const menuContainer = document.querySelector('.main-menu');
+    const menuContainer = document.getElementById('link-container');
     const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
     const currentIndex = links.findIndex(link => link.classList.contains('select'));
     const prevIndex = (currentIndex - 1 + links.length) % links.length;
@@ -40,32 +46,13 @@ function selectPreviousLink() {
     centerSelectedItem(prevLink);
 }
 
-// Update the selected link's appearance
-function updateSelectedLink(currentSelected, newSelected) {
-    if (currentSelected) {
-        currentSelected.classList.remove('select');
-    }
-    newSelected.classList.add('select');
-}
+// ... [Rest of your script]
 
-// Initialization on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    equalizeMenuItemWidths();
+// Attach event listeners to all 'trigger' elements
+document.querySelectorAll('.trigger.active.right').forEach(element => {
+    element.addEventListener('click', selectNextLink);
+});
 
-    const initialSelected = document.querySelector('.main-menu .select');
-    if (initialSelected) {
-        centerSelectedItem(initialSelected);
-    }
-
-    document.getElementById('select-button').addEventListener('click', clickSelectedLink);
-
-    window.addEventListener('resize', function() {
-        adjustLayout();
-        adjustAnchorTextSize();
-        equalizeMenuItemWidths();
-        const selectedLink = document.querySelector('.main-menu .select');
-        centerSelectedItem(selectedLink);
-    });
-
-    enterFullScreen();
+document.querySelectorAll('.trigger.active.left').forEach(element => {
+    element.addEventListener('click', selectPreviousLink);
 });
