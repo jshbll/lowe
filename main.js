@@ -1,9 +1,6 @@
 
 // Initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Clone items for the carousel loop
-    cloneMenuItemsForLoop();
-
     // Adjust layout to fit the viewport height
     adjustLayout();
 
@@ -35,27 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
-
-// Clone Menu Items to create an infinite loop effect
-function cloneMenuItemsForLoop() {
-    const menu = document.querySelector('.main-menu');
-    // Remove previous clones if any to avoid duplicating clones
-    menu.querySelectorAll('.clone').forEach(clone => clone.remove());
-
-    const firstItem = menu.children[0].cloneNode(true);
-    firstItem.classList.remove('select');
-    firstItem.classList.add('clone'); // Add a class to identify clones
-    const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
-    lastItem.classList.remove('select');
-    lastItem.classList.add('clone'); // Add a class to identify clones
-
-    menu.insertBefore(lastItem, menu.firstChild);
-    menu.appendChild(firstItem);
-}
-    
-
-
-// Finds the adjacent anchor tag (previous or next based on `isNext` flag)
+    // Finds the adjacent anchor tag (previous or next based on `isNext` flag)
 function findAdjacentAnchor(element, isNext) {
     // Start with either the next or previous sibling element
     let sibling = isNext ? element.nextElementSibling : element.previousElementSibling;
