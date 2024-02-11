@@ -156,12 +156,13 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
   });
 });
 window.addEventListener('resize', function() {
+  console.log('resize-fired!');
+
   // Call the first function
   equalizeMenuItemWidths();
   centerSelectedItem(); // Center the new selected item
   updateSelectedLink(); // Implement this function to update the 'select' class
   adjustLayout();
   equalizeMenuItemWidths();
-
 
 });
