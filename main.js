@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Calculate the median index
   var medianIndex = Math.floor(menuItems.length / 2);
+    equalizeMenuItemWidths();
 
   // Remove 'select' class from all items, just in case there's one already set
   menuItems.forEach(function(item) {
       item.classList.remove('select');
   });
+    equalizeMenuItemWidths();
 
   // Add 'select' class to the median item
   // This also checks if the menuItems collection is not empty
@@ -19,12 +21,28 @@ document.addEventListener('DOMContentLoaded', function() {
    const initialSelected = document.querySelector('.main-menu .select');
    if (initialSelected) {
      centerSelectedItem(initialSelected);
-   }
+   
+       equalizeMenuItemWidths();
+ }
    centerSelectedItem(); // Center the new selected item
    updateSelectedLink(); // Implement this function to update the 'select' class
    adjustLayout();
+
 });
 
+function equalizeMenuItemWidths() {
+  const menuContainer = document.querySelector('.main-menu');
+  const menuItems = document.querySelectorAll('.main-menu .menu-item');
+
+  if (menuContainer && menuItems.length > 0) {
+      const totalWidth = menuContainer.offsetWidth;
+      const equalWidth = totalWidth / menuItems.length;
+
+      menuItems.forEach(item => {
+          item.style.width = `${equalWidth}px`;
+      });
+  }
+}
 
 function adjustLayout() {
   // Adjust layout based on viewport size or other criteria
@@ -136,4 +154,8 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
     rotatePrevious();     // This will move the first item to the end
     selectPreviousLink(); // This will update the selection based on the new order
   });
+});
+
+    // Re-apply the equal width when the window is resized
+    window.addEventListener('resize', equalizeMenuItemWidths);
 });
