@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustLayout();
     adjustAnchorTextSize();
     equalizeMenuItemWidths();
-  
+    centerSelectedItem();
     // Center the initially selected item
     const initialSelected = document.querySelector('.main-menu .select');
     if (initialSelected) {
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       adjustLayout();
       adjustAnchorTextSize();
       equalizeMenuItemWidths();
+      centerSelectedItem();
       // Re-center the selected item after resizing
       const currentlySelected = document.querySelector('.main-menu .select');
       if (currentlySelected) {
