@@ -1,19 +1,5 @@
-// update Menu Position
-function centerSelectedItem(selectedItem) {
-    const menuContainer = document.querySelector('.main-menu');
-    const selectedItemOffset = selectedItem.offsetLeft;
-    const selectedItemWidth = selectedItem.offsetWidth;
-    const menuContainerWidth = menuContainer.offsetWidth;
 
-    // Calculate the scroll position to center the selected item
-    const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
-    // Smooth scroll to the new position
-    menuContainer.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-    });
-}
 
 
 
@@ -153,7 +139,22 @@ function clickSelectedLink() {
     }
 }
 
+// update Menu Position
+function centerSelectedItem(selectedItem) {
+    const menuContainer = document.querySelector('.main-menu');
+    const selectedItemOffset = selectedItem.offsetLeft;
+    const selectedItemWidth = selectedItem.offsetWidth;
+    const menuContainerWidth = menuContainer.offsetWidth;
 
+    // Calculate the scroll position to center the selected item
+    const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+
+    // Smooth scroll to the new position
+    menuContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
+}
 
 // Add click event listener to a specific button to trigger clickSelectedLink
 document.getElementById('select-button').addEventListener('click', clickSelectedLink);
@@ -176,10 +177,3 @@ window.addEventListener('resize', function() {
 
   
 
-document.addEventListener('DOMContentLoaded', function() {
-    cloneMenuItemsForLoop(); // Call this function to clone items
-    centerSelectedItem(); // Center the initially selected item
-    adjustLayout();
-    adjustAnchorTextSize();
-    // No need to clone again here as it's already done above
-});
