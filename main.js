@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if(menuItems.length > 0) {
       menuItems[medianIndex].classList.add('select');
   }
+   // Center the initially selected item
+   const initialSelected = document.querySelector('.main-menu .select');
+   if (initialSelected) {
+     centerSelectedItem(initialSelected);
+   }
 });
 
 
@@ -29,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const nextIndex = (currentIndex + 1) % links.length;
   const nextLink = links[nextIndex];
   updateSelectedLink(links[currentIndex], nextLink);
+  centerSelectedItem(nextLink);
 
 }
 
@@ -40,6 +46,25 @@ function selectPreviousLink() {
   const prevIndex = (currentIndex - 1 + links.length) % links.length;
   const prevLink = links[prevIndex];
   updateSelectedLink(links[currentIndex], prevLink);
+  centerSelectedItem(prevLink);
+
+}
+
+// Update Menu Position to center the selected item
+function centerSelectedItem(selectedItem) {
+  const menuContainer = document.querySelector('.main-menu');
+  const selectedItemOffset = selectedItem.offsetLeft;
+  const selectedItemWidth = selectedItem.offsetWidth;
+  const menuContainerWidth = menuContainer.offsetWidth;
+
+  // Calculate the scroll position to center the selected item
+  const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+
+  // Smooth scroll to the new position
+  menuContainer.scrollTo({
+    left: scrollPosition,
+    behavior: 'smooth'
+  });
 }
 
   // Update the selected link class
