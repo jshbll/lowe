@@ -54,6 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
     centerSelectedItem(prevLink);
   }
   
+  function adjustLayout() {
+    // Adjust layout based on viewport size or other criteria
+    // This is just a placeholder function, you'll need to fill it with your own logic
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
   // Update the selected link class
   function updateSelectedLink(currentSelected, newSelected) {
     if (currentSelected) {
