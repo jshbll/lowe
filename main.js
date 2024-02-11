@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
    updateSelectedLink(); // Implement this function to update the 'select' class
    adjustLayout();
 
+   window.addEventListener('resize', equalizeMenuItemWidths);
+
+
 });
 
 function equalizeMenuItemWidths() {
@@ -154,8 +157,4 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
     rotatePrevious();     // This will move the first item to the end
     selectPreviousLink(); // This will update the selection based on the new order
   });
-});
-
-    // Re-apply the equal width when the window is resized
-    window.addEventListener('resize', equalizeMenuItemWidths);
 });
