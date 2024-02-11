@@ -20,9 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
    if (initialSelected) {
      centerSelectedItem(initialSelected);
    }
+   adjustLayout();
 });
 
 
+function adjustLayout() {
+  // Adjust layout based on viewport size or other criteria
+  // This is just a placeholder function, you'll need to fill it with your own logic
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 // Define Functions 
 
 // Function to move the first item to the end of the menu
