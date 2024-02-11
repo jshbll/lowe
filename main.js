@@ -17,22 +17,22 @@ function centerSelectedItem() {
 }
 
 
-// Clone Menu Items to create an infinite loop effect
-function cloneMenuItemsForLoop() {
-    const menu = document.querySelector('.main-menu');
-    // Remove previous clones if any to avoid duplicating clones
-    menu.querySelectorAll('.clone').forEach(clone => clone.remove());
+// // Clone Menu Items to create an infinite loop effect
+// function cloneMenuItemsForLoop() {
+//     const menu = document.querySelector('.main-menu');
+//     // Remove previous clones if any to avoid duplicating clones
+//     menu.querySelectorAll('.clone').forEach(clone => clone.remove());
 
-    const firstItem = menu.children[0].cloneNode(true);
-    firstItem.classList.remove('select');
-    firstItem.classList.add('clone'); // Add a class to identify clones
-    const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
-    lastItem.classList.remove('select');
-    lastItem.classList.add('clone'); // Add a class to identify clones
+//     const firstItem = menu.children[0].cloneNode(true);
+//     firstItem.classList.remove('select');
+//     firstItem.classList.add('clone'); // Add a class to identify clones
+//     const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
+//     lastItem.classList.remove('select');
+//     lastItem.classList.add('clone'); // Add a class to identify clones
 
-    menu.insertBefore(lastItem, menu.firstChild);
-    menu.appendChild(firstItem);
-}
+//     menu.insertBefore(lastItem, menu.firstChild);
+//     menu.appendChild(firstItem);
+// }
     
 
 
