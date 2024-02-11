@@ -23,7 +23,7 @@ body {
 .main-menu {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
     justify-content: flex-start;
     scroll-behavior: smooth;
 }
