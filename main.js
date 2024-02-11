@@ -1,91 +1,60 @@
-function centerSelectedItem(selectedItem) {
-    const menuContainer = document.querySelector('.main-menu');
-    const indicator = document.querySelector('.selection-indicator');
+// update Menu Position
+function centerSelectedItem() {
+    const menu = document.querySelector('.main-menu');
+    const selectedItem = menu.querySelector('.select');
+
+    if (!selectedItem) return;
+
+    const selectedItemOffset = selectedItem.offsetLeft + selectedItem.offsetWidth / 2;
+    const menuHalfWidth = menu.offsetWidth / 2;
+    const scrollPosition = selectedItemOffset - menuHalfWidth;
     
-    // Calculate the center position for the selected item
-    const scrollLeft = selectedItem.offsetLeft + selectedItem.offsetWidth / 2 - menuContainer.offsetWidth / 2;
-    
-    // Scroll the menu to the calculated position
-    menuContainer.scrollTo({
-        left: scrollLeft,
+    // Smooth scroll to the new position
+    menu.scrollTo({
+        left: scrollPosition,
         behavior: 'smooth'
     });
-
-    // Position the indicator under the selected item
-    indicator.style.width = `${selectedItem.offsetWidth}px`;
-    indicator.style.left = `${selectedItem.offsetLeft}px`;
-}
-
-// Call this function whenever a new item is selected to center it
-function selectNewItem(newSelectedElement) {
-    // Update selected class
-    const currentSelected = document.querySelector('.main-menu .select');
-    if (currentSelected) {
-        currentSelected.classList.remove('select');
-    }
-    newSelectedElement.classList.add('select');
-
-    // Center the new item
-    centerSelectedItem(newSelectedElement);
 }
 
 
-// This function is triggered when the "next" or "previous" navigation is activated
-function selectNextLink() {
-    const currentSelected = document.querySelector('.main-menu .select');
-    const nextLink = findAdjacentAnchor(currentSelected, true) || currentSelected; // Loop back to current if no next
-    selectNewItem(nextLink);
-    const selectedLink = document.querySelector('.main-menu .select');
-    centerSelectedItem(selectedLink);
-}
-
-function selectPreviousLink() {
-    const currentSelected = document.querySelector('.main-menu .select');
-    const prevLink = findAdjacentAnchor(currentSelected, false) || currentSelected; // Loop back to current if no prev
-    selectNewItem(prevLink);
-    const selectedLink = document.querySelector('.main-menu .select');
-    centerSelectedItem(selectedLink);
-}
 // Clone Menu Items to create an infinite loop effect
 function cloneMenuItemsForLoop() {
     const menu = document.querySelector('.main-menu');
-
-    // Remove previous clones to avoid duplicating clones
+    // Remove previous clones if any to avoid duplicating clones
     menu.querySelectorAll('.clone').forEach(clone => clone.remove());
 
-    // Clone only the menu items, not the selection indicator
-    const menuItems = Array.from(menu.children).filter(child => !child.classList.contains('selection-indicator'));
-    
-    if (menuItems.length > 0) {
-        const firstItem = menuItems[0].cloneNode(true);
-        firstItem.classList.remove('select');
-        firstItem.classList.add('clone'); // Add a class to identify clones
+    const firstItem = menu.children[0].cloneNode(true);
+    firstItem.classList.remove('select');
+    firstItem.classList.add('clone'); // Add a class to identify clones
+    const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
+    lastItem.classList.remove('select');
+    lastItem.classList.add('clone'); // Add a class to identify clones
 
-        const lastItem = menuItems[menuItems.length - 1].cloneNode(true);
-        lastItem.classList.remove('select');
-        lastItem.classList.add('clone'); // Add a class to identify clones
-
-        menu.insertBefore(lastItem, menu.firstChild);
-        menu.appendChild(firstItem);
-    }
+    menu.insertBefore(lastItem, menu.firstChild);
+    menu.appendChild(firstItem);
 }
+    
 
-// Helper function to find the next or previous anchor element
+
+// Finds the adjacent anchor tag (previous or next based on `isNext` flag)
 function findAdjacentAnchor(element, isNext) {
+    // Start with either the next or previous sibling element
     let sibling = isNext ? element.nextElementSibling : element.previousElementSibling;
+
+    // Loop until an anchor tag is found or there are no more sibling elements
     while (sibling && sibling.tagName !== 'A') {
         sibling = isNext ? sibling.nextElementSibling : sibling.previousElementSibling;
     }
     return sibling;
 }
 
-function updateSelectionIndicator(newSelectedElement) {
-    const indicator = document.querySelector('.selection-indicator');
-
-    if (!indicator || !newSelectedElement) return;
-
-    // Update the width of the indicator to match the new selected element
-    indicator.style.width = `${newSelectedElement.offsetWidth}px`;
+  
+function updateSelectedLink(currentSelected, newSelected) {
+    const links = document.querySelectorAll('.menu-item');
+    links.forEach(link => link.classList.remove('select')); // Remove 'select' from all links
+    if (newSelected) {
+        newSelected.classList.add('select'); // Add 'select' to the new link
+    }
 }
 
  function clickSelectedLink() {
@@ -95,27 +64,53 @@ function updateSelectionIndicator(newSelectedElement) {
     }
 }
 
-// Ensure the selection indicator stays centered
-function centerSelectionIndicator() {
-    const menuContainer = document.querySelector('.main-menu');
-    const indicator = document.querySelector('.selection-indicator');
-    const menuContainerRect = menuContainer.getBoundingClientRect();
+function selectPreviousLink() {
+    console.log("selectPreviousLink called");
+    const linksContainer = document.getElementById('link-container');
+    const links = linksContainer.getElementsByTagName('a');
+    const selected = linksContainer.querySelector('.select');
 
-    // Keep the indicator centered in the menu container
-    indicator.style.left = `${menuContainerRect.width / 2 - indicator.offsetWidth / 2}px`;
+    // If the first link is selected, find the last link
+    const isFirstLinkSelected = selected && selected === links[0];
+
+    let previousLink = isFirstLinkSelected ? links[links.length - 1] : findAdjacentAnchor(selected, false);
+
+    // If no link is selected or the first link was selected, select the last link
+    if (!selected || isFirstLinkSelected) {
+        updateSelectedLink(selected, previousLink);
+    } else {
+        // Find and select the previous link
+        previousLink = findAdjacentAnchor(selected, false);
+        updateSelectedLink(selected, previousLink);
+    }
+      centerSelectedItem();
+
+}
+
+// Selects the next link in the list
+function selectNextLink() {
+    const linksContainer = document.getElementById('link-container');
+    const links = linksContainer.getElementsByTagName('a');
+    const selected = linksContainer.querySelector('.select');
+
+    // Check if the last link is selected
+    const isLastLinkSelected = selected && selected === links[links.length - 1];
+
+    let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
+
+    // If no link is selected or the last link was selected, select the first link
+    if (!selected || isLastLinkSelected) {
+        updateSelectedLink(selected, nextLink);
+    } else {
+        // Find and select the next link
+        nextLink = findAdjacentAnchor(selected, true);
+        updateSelectedLink(selected, nextLink);
+    }
+     centerSelectedItem();
 }
 
 
-// Helper function to update the selected link class
-function updateSelectedLink(currentSelected, newSelected) {
-    if (currentSelected) {
-        currentSelected.classList.remove('select');
-    }
-    if (newSelected) {
-        newSelected.classList.add('select');
-    }
-}
-
+// Handles key down events for navigation and selection
 function handleKeyDown(event) {
     // Map of keys to their corresponding actions
     const keyActionMap = {
@@ -131,6 +126,20 @@ function handleKeyDown(event) {
         keyActionMap[event.key]();
     }
 }
+
+document.addEventListener('keydown', handleKeyDown);
+
+
+// Attach event listeners to all 'trigger' elements
+document.querySelectorAll('.trigger.active.right').forEach(element => {
+    element.addEventListener('click', selectNextLink);
+});
+
+
+document.querySelectorAll('.trigger.active.left').forEach(element => {
+    element.addEventListener('click', selectPreviousLink);
+});
+
 
 // Adjusts layout to the viewport height
 function adjustLayout() {
@@ -155,27 +164,11 @@ function clickSelectedLink() {
     }
 }
 
-function enterFullScreen() {
-    if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-        document.documentElement.webkitRequestFullscreen();
-    }
-}
 
-document.addEventListener('keydown', handleKeyDown);
 
 // Add click event listener to a specific button to trigger clickSelectedLink
 document.getElementById('select-button').addEventListener('click', clickSelectedLink);
 
-// Attach event listeners to all 'trigger' elements
-document.querySelectorAll('.trigger.active.right').forEach(element => {
-    element.addEventListener('click', selectNextLink);
-});
-
-document.querySelectorAll('.trigger.active.left').forEach(element => {
-    element.addEventListener('click', selectPreviousLink);
-});
 
 // Add resize event listener to adjust layout and font size when window is resized
 window.addEventListener('resize', function() {
@@ -183,17 +176,21 @@ window.addEventListener('resize', function() {
     adjustAnchorTextSize();
     centerSelectedItem();
 });
+  
+  function enterFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Safari
+        document.documentElement.webkitRequestFullscreen();
+    }
+}
 
-// Initial setup to center the selection indicator and selected item
+  
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Clone items and adjust layout as before
-    cloneMenuItemsForLoop();
+    cloneMenuItemsForLoop(); // Call this function to clone items
+    centerSelectedItem(); // Center the initially selected item
     adjustLayout();
     adjustAnchorTextSize();
-
-    // Initial selection
-    const initialSelected = document.querySelector('.main-menu .select');
-    if (initialSelected) {
-        centerSelectedItem(initialSelected);
-    }
+    // No need to clone again here as it's already done above
 });
