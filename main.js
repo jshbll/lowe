@@ -17,22 +17,22 @@ function centerSelectedItem() {
 }
 
 
-// // Clone Menu Items to create an infinite loop effect
-// function cloneMenuItemsForLoop() {
-//     const menu = document.querySelector('.main-menu');
-//     // Remove previous clones if any to avoid duplicating clones
-//     menu.querySelectorAll('.clone').forEach(clone => clone.remove());
+// Clone Menu Items to create an infinite loop effect
+function cloneMenuItemsForLoop() {
+    const menu = document.querySelector('.main-menu');
+    // Remove previous clones if any to avoid duplicating clones
+    menu.querySelectorAll('.clone').forEach(clone => clone.remove());
 
-//     const firstItem = menu.children[0].cloneNode(true);
-//     firstItem.classList.remove('select');
-//     firstItem.classList.add('clone'); // Add a class to identify clones
-//     const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
-//     lastItem.classList.remove('select');
-//     lastItem.classList.add('clone'); // Add a class to identify clones
+    const firstItem = menu.children[0].cloneNode(true);
+    firstItem.classList.remove('select');
+    firstItem.classList.add('clone'); // Add a class to identify clones
+    const lastItem = menu.children[menu.children.length - 1].cloneNode(true);
+    lastItem.classList.remove('select');
+    lastItem.classList.add('clone'); // Add a class to identify clones
 
-//     menu.insertBefore(lastItem, menu.firstChild);
-//     menu.appendChild(firstItem);
-// }
+    menu.insertBefore(lastItem, menu.firstChild);
+    menu.appendChild(firstItem);
+}
     
 
 
@@ -64,51 +64,40 @@ function updateSelectedLink(currentSelected, newSelected) {
     }
 }
 
-function selectPreviousLink() {
-    console.log("selectPreviousLink called");
-    const linksContainer = document.getElementById('link-container');
-    const links = linksContainer.getElementsByTagName('a');
-    const selected = linksContainer.querySelector('.select');
-
-    // If the first link is selected, find the last link
-    const isFirstLinkSelected = selected && selected === links[0];
-
-    let previousLink = isFirstLinkSelected ? links[links.length - 1] : findAdjacentAnchor(selected, false);
-
-    // If no link is selected or the first link was selected, select the last link
-    if (!selected || isFirstLinkSelected) {
-        updateSelectedLink(selected, previousLink);
-    } else {
-        // Find and select the previous link
-        previousLink = findAdjacentAnchor(selected, false);
-        updateSelectedLink(selected, previousLink);
-    }
-      centerSelectedItem();
-
-}
-
-// Selects the next link in the list
 function selectNextLink() {
-    const linksContainer = document.getElementById('link-container');
-    const links = linksContainer.getElementsByTagName('a');
-    const selected = linksContainer.querySelector('.select');
+    const menuContainer = document.getElementById('link-container');
+    const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
+    const currentIndex = links.findIndex(link => link.classList.contains('select'));
+    const nextIndex = (currentIndex + 1) % links.length;
+    const nextLink = links[nextIndex];
 
-    // Check if the last link is selected
-    const isLastLinkSelected = selected && selected === links[links.length - 1];
-
-    let nextLink = isLastLinkSelected ? links[0] : findAdjacentAnchor(selected, true);
-
-    // If no link is selected or the last link was selected, select the first link
-    if (!selected || isLastLinkSelected) {
-        updateSelectedLink(selected, nextLink);
-    } else {
-        // Find and select the next link
-        nextLink = findAdjacentAnchor(selected, true);
-        updateSelectedLink(selected, nextLink);
-    }
-     centerSelectedItem();
+    updateSelectedLink(links[currentIndex], nextLink);
+    shiftCarouselItem('next');
+    centerSelectedItem(nextLink);
 }
 
+function selectPreviousLink() {
+    const menuContainer = document.getElementById('link-container');
+    const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
+    const currentIndex = links.findIndex(link => link.classList.contains('select'));
+    const prevIndex = (currentIndex - 1 + links.length) % links.length;
+    const prevLink = links[prevIndex];
+
+    updateSelectedLink(links[currentIndex], prevLink);
+    shiftCarouselItem('prev');
+    centerSelectedItem(prevLink);
+}
+
+function shiftCarouselItem(direction) {
+    const menu = document.querySelector('.main-menu');
+    if (direction === 'next') {
+        const firstItem = menu.children[0];
+        menu.appendChild(firstItem);  // Move the first item to the end
+    } else {
+        const lastItem = menu.children[menu.children.length - 1];
+        menu.insertBefore(lastItem, menu.children[0]);  // Move the last item to the start
+    }
+}
 
 // Handles key down events for navigation and selection
 function handleKeyDown(event) {
