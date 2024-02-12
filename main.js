@@ -101,7 +101,6 @@ function rotatePrevious() {
   const nextLink = links[nextIndex];
   updateSelectedLink(links[currentIndex], nextLink);
   centerSelectedItem(nextLink);
-  updateMenuItemsClasses();
 }
 
 // Selects the previous link in the menu
@@ -113,7 +112,6 @@ function selectPreviousLink() {
   const prevLink = links[prevIndex];
   updateSelectedLink(links[currentIndex], prevLink);
   centerSelectedItem(prevLink);
-  updateMenuItemsClasses();
 }
 
 // Update Menu Position to center the selected item
