@@ -164,20 +164,21 @@ function centerSelectedItem(selectedItem) {
 //update menu items classes so i can create a perspective
 function updateMenuItemsClasses() {
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-  const itemCount = menuItems.length;
-  const middleIndex = Math.floor(itemCount / 2);
-
+  const selectedIndex = Array.from(menuItems).findIndex(item => item.classList.contains('select'));
+  
   menuItems.forEach((item, index) => {
-      // Remove all previous classes except 'menu-item' and 'select'
-      item.className = item.className.replace(/distance-\d+/g, '');
+      // Remove all previous 'distance' classes
+      item.className = item.className.replace(/distance-\d+-\w+/g, '');
 
-      // Determine distance from the middle
-      const distanceFromMiddle = Math.abs(middleIndex - index);
-      
-      // Assign class based on distance
-      item.classList.add(`distance-${distanceFromMiddle}`);
+      // Determine distance and direction from the selected item
+      const distance = Math.abs(selectedIndex - index);
+      const direction = index < selectedIndex ? 'left' : 'right';
+
+      // Assign class based on distance and direction
+      item.classList.add(`distance-${distance}-${direction}`);
   });
 }
+
   
 // Attach event listeners to all 'trigger' elements
  document.querySelectorAll('.trigger.active.right').forEach(element => {
