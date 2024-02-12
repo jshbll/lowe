@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
    centerSelectedItem(); // Center the new selected item
    updateSelectedLink(); // Implement this function to update the 'select' class
    adjustLayout();
-
+   updateMenuItemsClasses();
 });
 
 
@@ -78,6 +78,7 @@ function rotateNext() {
   menu.appendChild(firstItem);  // Move the first item to the end
   updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
+  updateMenuItemsClasses();
 }
 
 // Function to move the last item to the beginning of the menu
@@ -87,6 +88,7 @@ function rotatePrevious() {
   menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
   updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
+  updateMenuItemsClasses();
 }
 
 
@@ -159,6 +161,23 @@ function centerSelectedItem(selectedItem) {
     menu.scrollLeft = scrollLeft;
   }
 
+//update menu items classes so i can create a perspective
+function updateMenuItemsClasses() {
+  const menuItems = document.querySelectorAll('.main-menu .menu-item');
+  const itemCount = menuItems.length;
+  const middleIndex = Math.floor(itemCount / 2);
+
+  menuItems.forEach((item, index) => {
+      // Remove all previous classes except 'menu-item' and 'select'
+      item.className = item.className.replace(/distance-\d+/g, '');
+
+      // Determine distance from the middle
+      const distanceFromMiddle = Math.abs(middleIndex - index);
+      
+      // Assign class based on distance
+      item.classList.add(`distance-${distanceFromMiddle}`);
+  });
+}
   
 // Attach event listeners to all 'trigger' elements
  document.querySelectorAll('.trigger.active.right').forEach(element => {
