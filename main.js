@@ -1,35 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
   adjustAnchorTextSize();
+  equalizeMenuItemWidths();
+  adjustLayout();
+
   // Select all menu items
   var menuItems = document.querySelectorAll('.menu-item');
 
   // Calculate the median index
   var medianIndex = Math.floor(menuItems.length / 2);
-    equalizeMenuItemWidths();
-
-  // Remove 'select' class from all items, just in case there's one already set
-  menuItems.forEach(function(item) {
-      item.classList.remove('select');
-  });
-    equalizeMenuItemWidths();
 
   // Add 'select' class to the median item
-  // This also checks if the menuItems collection is not empty
   if(menuItems.length > 0) {
       menuItems[medianIndex].classList.add('select');
   }
-   // Center the initially selected item
-   const initialSelected = document.querySelector('.main-menu .select');
-   if (initialSelected) {
-     centerSelectedItem(initialSelected);
-   
-       equalizeMenuItemWidths();
- }
-   updateSelectedLink(); // Implement this function to update the 'select' class
-   centerSelectedItem(); // Center the new selected item
-   adjustLayout();
-   updateMenuItemsClasses();
+
+  // Center the initially selected item
+  const initialSelected = document.querySelector('.main-menu .select');
+  if (initialSelected) {
+    centerSelectedItem(initialSelected);
+  }
+
+  updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
+
+// ... rest of your functions
+
 
 
 function adjustAnchorTextSize() {
