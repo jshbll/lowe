@@ -165,20 +165,36 @@ function centerSelectedItem(selectedItem) {
 function updateMenuItemsClasses() {
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
   const selectedIndex = Array.from(menuItems).findIndex(item => item.classList.contains('select'));
-  
+  const itemCount = menuItems.length;
+
   menuItems.forEach((item, index) => {
-      // Remove all previous 'distance' classes
-      item.className = item.className.replace(/distance-\d+-\w+/g, '');
+      // Clear previous classes and transform
+      item.className = 'menu-item';
+      item.style.transform = '';
 
-      // Determine distance and direction from the selected item
-      const distance = Math.abs(selectedIndex - index);
-      const direction = index < selectedIndex ? 'left' : 'right';
+      // Calculate distance from the selected index
+      const distance = Math.abs(index - selectedIndex);
+      const leftOrRightClass = index < selectedIndex ? 'left' : 'right';
 
-      // Assign class based on distance and direction
-      item.classList.add(`distance-${distance}-${direction}`);
+      // Add classes based on the position relative to selectedIndex
+      if (index !== selectedIndex) {
+          item.classList.add(`${leftOrRightClass}-${distance}`);
+      }
+
+      // Calculate and set translateY for curved appearance
+      const translateYValue = calculateTranslateY(distance, itemCount);
+      item.style.transform = `translateY(${translateYValue}vw)`;
   });
 }
 
+function calculateTranslateY(distance, itemCount) {
+  // Adjust the intensity and max curvature as needed
+  const curveIntensity = 0.5; // Adjust this value for more/less curve
+  const maxCurve = 180; // Max curve angle, adjust as needed
+  const angleStep = maxCurve / itemCount;
+
+  return curveIntensity * Math.sin(angleStep * distance * Math.PI / 180);
+}
   
 // Attach event listeners to all 'trigger' elements
  document.querySelectorAll('.trigger.active.right').forEach(element => {
