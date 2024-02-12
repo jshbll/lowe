@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
    
        equalizeMenuItemWidths();
  }
-   centerSelectedItem(); // Center the new selected item
    updateSelectedLink(); // Implement this function to update the 'select' class
+   centerSelectedItem(); // Center the new selected item
    adjustLayout();
    updateMenuItemsClasses();
 });
@@ -101,6 +101,7 @@ function rotatePrevious() {
   const nextLink = links[nextIndex];
   updateSelectedLink(links[currentIndex], nextLink);
   centerSelectedItem(nextLink);
+  updateMenuItemsClasses();
 }
 
 // Selects the previous link in the menu
@@ -112,6 +113,7 @@ function selectPreviousLink() {
   const prevLink = links[prevIndex];
   updateSelectedLink(links[currentIndex], prevLink);
   centerSelectedItem(prevLink);
+  updateMenuItemsClasses();
 }
 
 // Update Menu Position to center the selected item
@@ -214,8 +216,8 @@ window.addEventListener('resize', function() {
   // Call the first function
   adjustAnchorTextSize();
   equalizeMenuItemWidths();
-  centerSelectedItem(); // Center the new selected item
   updateSelectedLink(); // Implement this function to update the 'select' class
+  centerSelectedItem(); // Center the new selected item
   adjustLayout();
   equalizeMenuItemWidths();
 
