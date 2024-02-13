@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('we good')
   adjustAnchorTextSize();
   equalizeMenuItemWidths();
   adjustLayout();
