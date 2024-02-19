@@ -1,0 +1,56 @@
+body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+.main {
+    height: calc(var(--vh, 1vh) * 100);
+    body {
+        padding-top: constant(safe-area-inset-top); /* Deprecated, for iOS 11.0 */
+        padding-top: env(safe-area-inset-top); /* for iOS 11.2 and later */
+        padding-bottom: constant(safe-area-inset-bottom); /* Deprecated, for iOS 11.0 */
+        padding-bottom: env(safe-area-inset-bottom); /* for iOS 11.2 and later */
+        /* Add padding for left and right if necessary */
+        padding-left: constant(safe-area-inset-left); /* Deprecated, for iOS 11.0 */
+        padding-left: env(safe-area-inset-left); /* for iOS 11.2 and later */
+        padding-right: constant(safe-area-inset-right); /* Deprecated, for iOS 11.0 */
+        padding-right: env(safe-area-inset-right); /* for iOS 11.2 and later */
+        }
+}
+
+.main-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    justify-content: space-around;
+    scroll-behavior: smooth;
+}
+
+.menu-item {
+    color: #3b2525;
+    flex: 0 0 auto;
+    font-family: Staatliches, sans-serif;
+    line-height: 160%;
+    text-decoration: none;
+    transition: background-color .2s; /* Smooth transition for hover effects */
+    display: inline-block; /* Use inline-flex if you need to align content within the item */
+    align-items: center; /* Aligns the text vertically in the center, if necessary */
+    white-space: nowrap;
+    justify-content: center;
+}
+
+  body {
+      -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  }
+  
+
+.selection-indicator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
