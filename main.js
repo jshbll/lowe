@@ -93,7 +93,7 @@ function rotatePrevious() {
  function selectNextLink() {
   const menuContainer = document.getElementById('link-container');
   const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
-  const currentIndex = links.findIndex(link => link.classList.contains('select'));
+  const currentIndex = links.findIndex(link => link.classList.contains('selected-item'));
   const nextIndex = (currentIndex + 1) % links.length;
   const nextLink = links[nextIndex];
   updateSelectedLink(links[currentIndex], nextLink);
@@ -105,7 +105,7 @@ function rotatePrevious() {
 function selectPreviousLink() {
   const menuContainer = document.getElementById('link-container');
   const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
-  const currentIndex = links.findIndex(link => link.classList.contains('select'));
+  const currentIndex = links.findIndex(link => link.classList.contains('selected-item'));
   const prevIndex = (currentIndex - 1 + links.length) % links.length;
   const prevLink = links[prevIndex];
   updateSelectedLink(links[currentIndex], prevLink);
@@ -142,7 +142,7 @@ function centerSelectedItem(selectedItem) {
 
   function centerSelectedItem() {
     const menu = document.querySelector('.main-menu');
-    const selectedItem = menu.querySelector('.select');
+    const selectedItem = menu.querySelector('.select-item');
   
     // Ensure selectedItem exists
     if (!selectedItem) return;
@@ -161,7 +161,7 @@ function centerSelectedItem(selectedItem) {
 //update menu items classes so i can create a perspective
 function updateMenuItemsClasses() {
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-  const selectedIndex = Array.from(menuItems).findIndex(item => item.classList.contains('select'));
+  const selectedIndex = Array.from(menuItems).findIndex(item => item.classList.contains('selected-item'));
   const itemCount = menuItems.length;
 
   menuItems.forEach((item, index) => {
