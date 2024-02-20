@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     centerSelectedItem(initialSelected);
   }
 
-  updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
+  //updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
 
 
