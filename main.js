@@ -92,7 +92,6 @@ function rotatePrevious() {
   const nextLink = links[nextIndex];
   updateSelectedLink(links[currentIndex], nextLink);
   centerSelectedItem(nextLink);
-  updateMenuItemsClasses();
 }
 
 // Selects the previous link in the menu
@@ -104,7 +103,6 @@ function selectPreviousLink() {
   const prevLink = links[prevIndex];
   updateSelectedLink(links[currentIndex], prevLink);
   centerSelectedItem(prevLink);
-  updateMenuItemsClasses();
 }
 
 // Update Menu Position to center the selected item
@@ -196,6 +194,8 @@ function calculateTranslateY(distance, itemCount) {
  document.querySelectorAll('.trigger.active.right').forEach(element => {
   element.addEventListener('click', function() {
     rotateNext();     // This will move the first item to the end
+    updateMenuItemsClasses();
+
   //  selectNextLink(); // This will update the selection based on the new order
   });
 });
@@ -203,6 +203,8 @@ function calculateTranslateY(distance, itemCount) {
 document.querySelectorAll('.trigger.active.left').forEach(element => {
   element.addEventListener('click', function() {
     rotatePrevious();     // This will move the first item to the end
+    updateMenuItemsClasses();
+
   //  selectPreviousLink(); // This will update the selection based on the new order
   });
 });
