@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Calculate the median index
   var medianIndex = Math.floor(menuItems.length / 2);
 
-  // Add 'select' class to the median item
+  // Add 'selected-item' class to the median item
   if(menuItems.length > 0) {
-      menuItems[medianIndex].classList.add('select');
+      menuItems[medianIndex].classList.add('selected-item');
   }
 
   // Center the initially selected item
-  const initialSelected = document.querySelector('.main-menu .select');
+  const initialSelected = document.querySelector('.main-menu .selected-item');
   if (initialSelected) {
     centerSelectedItem(initialSelected);
   }
