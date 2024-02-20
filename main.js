@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       menuItems[medianIndex].classList.add('selected-item');
   }
 
-  // Center the initially selected item
+// Center the initially selected item
   const initialSelected = document.querySelector('.main-menu .selected-item');
   if (initialSelected) {
     centerSelectedItem(initialSelected);
@@ -25,24 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
   updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
 
-// ... rest of your functions
-
-
 
 function adjustAnchorTextSize() {
   // Adjust the font size of anchor tags based on the viewport width or other criteria
-  // This is just a placeholder function, you'll need to fill it with your own logic
   const viewportWidth = window.innerWidth;
   const anchors = document.querySelectorAll('a');
 
   anchors.forEach(anchor => {
-      // Apply some font resizing logic depending on your requirements
-      // This is a simple example where the font size is set based on the viewport width
+      // This is where the font size is set based on the viewport width
       const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
       anchor.style.fontSize = `${fontSize}px`;
   });
 }
 
+//updates the width of each menu item to be the same so it properly fits
 function equalizeMenuItemWidths() {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
@@ -60,13 +56,12 @@ function equalizeMenuItemWidths() {
   }
 }
 
+//fix the ios issue regarding viewport height
 function adjustLayout() {
   // Adjust layout based on viewport size or other criteria
-  // This is just a placeholder function, you'll need to fill it with your own logic
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
-// Define Functions 
 
 // Function to move the first item to the end of the menu
 function rotateNext() {
@@ -87,7 +82,6 @@ function rotatePrevious() {
   centerSelectedItem(); // Center the new selected item
   updateMenuItemsClasses();
 }
-
 
  // Selects the next link in the menu
  function selectNextLink() {
@@ -197,14 +191,14 @@ function calculateTranslateY(distance, itemCount) {
  document.querySelectorAll('.trigger.active.right').forEach(element => {
   element.addEventListener('click', function() {
     rotateNext();     // This will move the first item to the end
-    selectNextLink(); // This will update the selection based on the new order
+  //  selectNextLink(); // This will update the selection based on the new order
   });
 });
 
 document.querySelectorAll('.trigger.active.left').forEach(element => {
   element.addEventListener('click', function() {
     rotatePrevious();     // This will move the first item to the end
-    selectPreviousLink(); // This will update the selection based on the new order
+  //  selectPreviousLink(); // This will update the selection based on the new order
   });
 });
 window.addEventListener('resize', function() {
