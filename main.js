@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('we good')
   adjustAnchorTextSize();
   equalizeMenuItemWidths();
-  adjustLayout();
+  adjustVH();
 
   // Select all menu items
   var menuItems = document.querySelectorAll('.menu-item');
@@ -57,7 +57,7 @@ function equalizeMenuItemWidths() {
 }
 
 //fix the ios issue regarding viewport height
-function adjustLayout() {
+function adjustVH() {
   // Adjust layout based on viewport size or other criteria
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -173,6 +173,9 @@ function updateMenuItemsClasses() {
       if (index !== selectedIndex) {
           item.classList.add(`${leftOrRightClass}-${distance}`);
       }
+      else{
+        item.classList.add('selected-item');
+      }
 
       // Calculate and set translateY for curved appearance
       const translateYValue = calculateTranslateY(distance, itemCount);
@@ -211,7 +214,7 @@ window.addEventListener('resize', function() {
   equalizeMenuItemWidths();
   updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
-  adjustLayout();
+  adjustVH();
   equalizeMenuItemWidths();
 
 });
