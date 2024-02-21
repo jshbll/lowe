@@ -122,21 +122,12 @@ function selectPreviousLink() {
 // Update Menu Position to center the selected item
 function centerSelectedItem(selectedItem) {
   const menuContainer = document.querySelector('.main-menu');
-  const menuItems = document.querySelectorAll('.main-menu .menu-item');
-
-  if (!selectedItem || menuItems.length === 0) return;
-
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
 
   // Calculate the scroll position to center the selected item
-  let scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
-
-  // Adjust for even number of menu items
-  if (menuItems.length % 2 === 0) {
-    scrollPosition -= selectedItemWidth / 2;
-  }
+  const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
   // Smooth scroll to the new position
   menuContainer.scrollTo({
@@ -144,7 +135,6 @@ function centerSelectedItem(selectedItem) {
     behavior: 'smooth'
   });
 }
-
 
 
 
@@ -179,6 +169,7 @@ function updateMenuItemsClasses() {
             const translateYValue = calculateTranslateY(distance, itemCount);
             item.style.transform = `translateY(${translateYValue}vw)`;
             
+
 
   });
 }
