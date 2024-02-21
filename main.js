@@ -31,7 +31,6 @@ function adjustAnchorTextSize() {
   // Adjust the font size of anchor tags based on the viewport width or other criteria
   const viewportWidth = window.innerWidth;
   const anchors = document.querySelectorAll('.menu-item');
-  const selectedItem = document.querySelectorAll('.selected-item');
 
 
   anchors.forEach(anchor => {
@@ -134,7 +133,8 @@ function selectPreviousLink() {
 // Update Menu Position to center the selected item
 function centerSelectedItem(selectedItem) {
   const menuContainer = document.querySelector('.main-menu');
-  const menuItems = document.querySelectorAll('.main-menu .menu-item');  
+  const menuItems = document.querySelectorAll('.main-menu .menu-item');
+  const selectedItem = document.querySelectorAll('.selected-item');
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
