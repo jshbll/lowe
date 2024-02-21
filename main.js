@@ -38,7 +38,7 @@ function adjustAnchorTextSize() {
       const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
       anchor.style.fontSize = `${fontSize}px`;
   });
-  selectedItem.forEach(anchor => {
+  initialSelected.forEach(anchor => {
     // This is where the font size is set based on the viewport width
     const fontSize = Math.max(32, Math.min(48, viewportWidth / 100));
     anchor.style.fontSize = `${fontSize}px`;
