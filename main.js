@@ -85,14 +85,20 @@ function rotatePrevious() {
 }
 
  // Selects the next link in the menu
- function selectNextLink() {
+function selectNextLink() {
   const menuContainer = document.getElementById('link-container');
   const links = Array.from(menuContainer.getElementsByClassName('menu-item'));
   const currentIndex = links.findIndex(link => link.classList.contains('selected-item'));
   const nextIndex = (currentIndex + 1) % links.length;
   const nextLink = links[nextIndex];
-  updateSelectedLink(links[currentIndex], nextLink);
+
+  if (currentIndex !== -1) {
+    links[currentIndex].classList.remove('selected-item');
+  }
+  nextLink.classList.add('selected-item');
+
   centerSelectedItem(nextLink);
+  updateMenuItemsClasses();
 }
 
 // Selects the previous link in the menu
@@ -102,9 +108,16 @@ function selectPreviousLink() {
   const currentIndex = links.findIndex(link => link.classList.contains('selected-item'));
   const prevIndex = (currentIndex - 1 + links.length) % links.length;
   const prevLink = links[prevIndex];
-  updateSelectedLink(links[currentIndex], prevLink);
+
+  if (currentIndex !== -1) {
+    links[currentIndex].classList.remove('selected-item');
+  }
+  prevLink.classList.add('selected-item');
+
   centerSelectedItem(prevLink);
+  updateMenuItemsClasses();
 }
+
 
 // Update Menu Position to center the selected item
 function centerSelectedItem(selectedItem) {
@@ -186,7 +199,7 @@ function calculateTranslateY(distance, itemCount) {
     rotateNext();     // This will move the first item to the end
    // updateMenuItemsClasses();
 
-  //  selectNextLink(); // This will update the selection based on the new order
+  selectNextLink(); // This will update the selection based on the new order
   });
 });
 
@@ -195,7 +208,7 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
     rotatePrevious();     // This will move the first item to the end
    // updateMenuItemsClasses();
 
-  //  selectPreviousLink(); // This will update the selection based on the new order
+  selectPreviousLink(); // This will update the selection based on the new order
   });
 });
 window.addEventListener('resize', function() {
