@@ -124,23 +124,23 @@ function centerSelectedItem(selectedItem) {
 }
 
 
-  function centerSelectedItem() {
-    const menu = document.querySelector('.main-menu');
-    const selectedItem = menu.querySelector('.select-item');
+  // function centerSelectedItem() {
+  //   const menu = document.querySelector('.main-menu');
+  //   const selectedItem = menu.querySelector('.select-item');
   
-    // Ensure selectedItem exists
-    if (!selectedItem) return;
+  //   // Ensure selectedItem exists
+  //   if (!selectedItem) return;
   
-    // Get the bounding rectangle of the selected item and the menu
-    const selectedItemRect = selectedItem.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
+  //   // Get the bounding rectangle of the selected item and the menu
+  //   const selectedItemRect = selectedItem.getBoundingClientRect();
+  //   const menuRect = menu.getBoundingClientRect();
   
-    // Calculate the scroll position needed to center the selected item
-    const scrollLeft = selectedItem.offsetLeft - (menuRect.width / 2) + (selectedItemRect.width / 2);
+  //   // Calculate the scroll position needed to center the selected item
+  //   const scrollLeft = selectedItem.offsetLeft - (menuRect.width / 2) + (selectedItemRect.width / 2);
   
-    // Scroll the menu to the calculated position
-    menu.scrollLeft = scrollLeft;
-  }
+  //   // Scroll the menu to the calculated position
+  //   menu.scrollLeft = scrollLeft;
+  // }
 
 //update menu items classes so i can create a perspective
 function updateMenuItemsClasses() {
@@ -169,7 +169,7 @@ function updateMenuItemsClasses() {
 
   // Calculate the median index
   var medianIndex = Math.floor(menuItems.length / 2);
-  
+
   // Add 'selected-item' class to the median item
   if(menuItems.length > 0) {
     menuItems[medianIndex].classList.add('selected-item');
