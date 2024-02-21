@@ -127,7 +127,12 @@ function centerSelectedItem(selectedItem) {
   const menuContainerWidth = menuContainer.offsetWidth;
 
   // Calculate the scroll position to center the selected item
-  const scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+  let scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+
+    // Adjust for even number of menu items
+    if (menuItems.length % 2 === 0) {
+      scrollPosition -= selectedItemWidth / 2;
+    }
 
   // Smooth scroll to the new position
   menuContainer.scrollTo({
