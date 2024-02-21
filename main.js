@@ -29,13 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function adjustAnchorTextSize() {
   // Adjust the font size of anchor tags based on the viewport width or other criteria
   const viewportWidth = window.innerWidth;
-  const anchors = document.querySelectorAll('a');
+  const anchors = document.querySelectorAll('.menu-item');
+  const selectedItem = document.querySelectorAll('.selected-item');
+
 
   anchors.forEach(anchor => {
       // This is where the font size is set based on the viewport width
       const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
       anchor.style.fontSize = `${fontSize}px`;
   });
+  selectedItem.forEach(anchor => {
+    // This is where the font size is set based on the viewport width
+    const fontSize = Math.max(32, Math.min(48, viewportWidth / 100));
+    anchor.style.fontSize = `${fontSize}px`;
+});
 }
 
 //updates the width of each menu item to be the same so it properly fits
