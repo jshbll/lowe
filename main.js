@@ -41,7 +41,6 @@ function adjustAnchorTextSize() {
 function equalizeMenuItemWidths() {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-  const selectIndicator = document.querySelectorAll('.selection-indicator');
   if (menuContainer && menuItems.length > 0) {
       const totalWidth = menuContainer.offsetWidth;
       const equalWidth = totalWidth / menuItems.length;
@@ -49,9 +48,7 @@ function equalizeMenuItemWidths() {
       menuItems.forEach(item => {
           item.style.width = `${equalWidth}px`;
       });
-      selectIndicator.forEach(item => {
-        item.style.width = `${equalWidth}px`;
-    });
+
   }
 }
 
@@ -126,6 +123,7 @@ function selectPreviousLink() {
 function centerSelectedItem(selectedItem) {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
+  const selectedItem = document.querySelector('.selected-item');
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
