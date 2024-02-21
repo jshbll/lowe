@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
 
-
+//adjust the anchor text
 function adjustAnchorTextSize() {
   // Adjust the font size of anchor tags based on the viewport width or other criteria
   const viewportWidth = window.innerWidth;
@@ -70,7 +70,7 @@ function rotateNext() {
   menu.appendChild(firstItem);  // Move the first item to the end
  // updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
-  updateMenuItemsClasses();
+ // updateMenuItemsClasses();
 }
 
 // Function to move the last item to the beginning of the menu
@@ -80,7 +80,7 @@ function rotatePrevious() {
   menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
  // updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
-  updateMenuItemsClasses();
+ // updateMenuItemsClasses();
 }
 
  // Selects the next link in the menu
@@ -152,6 +152,7 @@ function centerSelectedItem(selectedItem) {
 
 //update menu items classes so i can create a perspective
 function updateMenuItemsClasses() {
+  
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
   console.log(menuItems);
   const selectedIndex = Array.from(menuItems).findIndex(item => item.classList.contains('selected-item'));
@@ -194,7 +195,7 @@ function calculateTranslateY(distance, itemCount) {
  document.querySelectorAll('.trigger.active.right').forEach(element => {
   element.addEventListener('click', function() {
     rotateNext();     // This will move the first item to the end
-    updateMenuItemsClasses();
+   // updateMenuItemsClasses();
 
   //  selectNextLink(); // This will update the selection based on the new order
   });
@@ -203,7 +204,7 @@ function calculateTranslateY(distance, itemCount) {
 document.querySelectorAll('.trigger.active.left').forEach(element => {
   element.addEventListener('click', function() {
     rotatePrevious();     // This will move the first item to the end
-    updateMenuItemsClasses();
+   // updateMenuItemsClasses();
 
   //  selectPreviousLink(); // This will update the selection based on the new order
   });
