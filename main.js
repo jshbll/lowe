@@ -1,7 +1,7 @@
+
 //main js
 document.addEventListener('DOMContentLoaded', function() {
   console.log('we good')
-  adjustAnchorTextSize();
   equalizeMenuItemWidths();
   adjustVH();
 
@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (initialSelected) {
     centerSelectedItem(initialSelected);
   }
+
+  adjustAnchorTextSize();
 
 });
 
