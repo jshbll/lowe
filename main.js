@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     centerSelectedItem(initialSelected);
   }
 
-  //updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
+  updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
 
 //adjust the anchor text
@@ -124,23 +124,7 @@ function centerSelectedItem(selectedItem) {
 }
 
 
-  // function centerSelectedItem() {
-  //   const menu = document.querySelector('.main-menu');
-  //   const selectedItem = menu.querySelector('.select-item');
-  
-  //   // Ensure selectedItem exists
-  //   if (!selectedItem) return;
-  
-  //   // Get the bounding rectangle of the selected item and the menu
-  //   const selectedItemRect = selectedItem.getBoundingClientRect();
-  //   const menuRect = menu.getBoundingClientRect();
-  
-  //   // Calculate the scroll position needed to center the selected item
-  //   const scrollLeft = selectedItem.offsetLeft - (menuRect.width / 2) + (selectedItemRect.width / 2);
-  
-  //   // Scroll the menu to the calculated position
-  //   menu.scrollLeft = scrollLeft;
-  // }
+
 
 //update menu items classes so i can create a perspective
 function updateMenuItemsClasses() {
