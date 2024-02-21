@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 
 // Center the initially selected item
-  const initialSelected = document.querySelector('.main-menu .selected-item');
+  const initialSelected = document.querySelector('.selected-item');
   if (initialSelected) {
     centerSelectedItem(initialSelected);
   }
