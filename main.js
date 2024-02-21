@@ -134,7 +134,6 @@ function selectPreviousLink() {
 function centerSelectedItem(selectedItem) {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-  const selectedItem = document.querySelectorAll('.selected-item');
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
