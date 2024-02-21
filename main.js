@@ -147,21 +147,27 @@ function updateMenuItemsClasses() {
       // Add classes based on the position relative to selectedIndex
       if (index !== selectedIndex) {
           item.classList.add(`${leftOrRightClass}-${distance}`);
+      } else {
+        //Ensure the selected itme does not have left or right classes
+        item.classList.add('selected-item');
       }
-        // Select all menu items
-  var menuItems = document.querySelectorAll('.menu-item');
 
-  // Calculate the median index
-  var medianIndex = Math.floor(menuItems.length / 2);
+            // Calculate and set translateY for curved appearance
+            const translateYValue = calculateTranslateY(distance, itemCount);
+            item.style.transform = `translateY(${translateYValue}vw)`;
+            
+//         // Select all menu items
+//   var menuItems = document.querySelectorAll('.menu-item');
 
-  // Add 'selected-item' class to the median item
-  if(menuItems.length > 0) {
-    menuItems[medianIndex].classList.add('selected-item');
-}
+//   // Calculate the median index
+//   var medianIndex = Math.floor(menuItems.length / 2);
 
-      // Calculate and set translateY for curved appearance
-      const translateYValue = calculateTranslateY(distance, itemCount);
-      item.style.transform = `translateY(${translateYValue}vw)`;
+//   // Add 'selected-item' class to the median item
+//   if(menuItems.length > 0) {
+//     menuItems[medianIndex].classList.add('selected-item');
+// }
+
+
   });
 }
 
