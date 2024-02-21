@@ -21,39 +21,13 @@ body {
 }
 
 .main-menu {
-    display: flex;
-    flex-wrap: nowrap;
     overflow-x: hidden; /* Hide horizontal scrollbar */
-    justify-content: space-around;
     scroll-behavior: smooth;
 }
 
-.menu-item {
-    color: #3b2525;
-    flex: 0 0 auto;
-    font-family: Staatliches, sans-serif;
-    line-height: 160%;
-    text-decoration: none;
-    transition: background-color .2s; /* Smooth transition for hover effects */
-    display: inline-block; /* Use inline-flex if you need to align content within the item */
-    align-items: center; /* Aligns the text vertically in the center, if necessary */
-    white-space: nowrap;
-    justify-content: center;
-}
 
   body {
       -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
   }
-  
-.selected-item {
-    font-size: 200%!important;
-}
-
-.selection-indicator {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
