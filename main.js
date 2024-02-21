@@ -16,13 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
       menuItems[medianIndex].classList.add('selected-item');
   }
 
+  updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
+
 // Center the initially selected item
   const initialSelected = document.querySelector('.main-menu .selected-item');
   if (initialSelected) {
     centerSelectedItem(initialSelected);
   }
 
-  updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
 });
 
 //adjust the anchor text
@@ -106,8 +107,9 @@ function selectNextLink() {
   }
   nextLink.classList.add('selected-item');
 
-  centerSelectedItem(nextLink);
   updateMenuItemsClasses();
+  centerSelectedItem(nextLink);
+
 }
 
 // Selects the previous link in the menu
@@ -123,8 +125,9 @@ function selectPreviousLink() {
   }
   prevLink.classList.add('selected-item');
 
-  centerSelectedItem(prevLink);
   updateMenuItemsClasses();
+  centerSelectedItem(prevLink);
+
 }
 
 
