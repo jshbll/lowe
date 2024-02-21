@@ -77,6 +77,7 @@ function rotateNext() {
   menu.appendChild(firstItem);  // Move the first item to the end
   selectNextLink(); // Implement this function to update the 'select' class
   updateMenuItemsClasses();
+  adjustAnchorTextSize();
   centerSelectedItem(); // Center the new selected item
 
 }
@@ -86,8 +87,9 @@ function rotatePrevious() {
   const menu = document.querySelector('.main-menu');
   const lastItem = menu.children[menu.children.length - 1];
   menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
-  selectPreviousLink(); // Implement this function to update the 'select' class
+  selectPreviousLink(); // Implement this function to update the 'select' class  
   updateMenuItemsClasses();
+  adjustAnchorTextSize();
   centerSelectedItem(); // Center the new selected item
 }
 
