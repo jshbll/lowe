@@ -17,13 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
-
-// Center the initially selected item
-  const initialSelected = document.querySelector('.selected-item');
-  if (initialSelected) {
-    centerSelectedItem(initialSelected);
-  }
-
+  centerSelectedItem(); // Center the new selected item
   adjustAnchorTextSize();
 
 });
@@ -40,11 +34,7 @@ function adjustAnchorTextSize() {
       const fontSize = Math.max(16, Math.min(24, viewportWidth / 100));
       anchor.style.fontSize = `${fontSize}px`;
   });
-  initialSelected.forEach(anchor => {
-    // This is where the font size is set based on the viewport width
-    const fontSize = Math.max(32, Math.min(48, viewportWidth / 100));
-    anchor.style.fontSize = `${fontSize}px`;
-});
+
 }
 
 //updates the width of each menu item to be the same so it properly fits
