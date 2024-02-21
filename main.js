@@ -120,10 +120,9 @@ function selectPreviousLink() {
 
 
 // Update Menu Position to center the selected item
-function centerSelectedItem(selectedItem) {
+function centerSelectedItem(document.querySelector('.selected-item')) {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-  const selectedItem = document.querySelector('.selected-item');
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
