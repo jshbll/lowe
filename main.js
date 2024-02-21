@@ -164,6 +164,12 @@ function updateMenuItemsClasses() {
       if (index !== selectedIndex) {
           item.classList.add(`${leftOrRightClass}-${distance}`);
       }
+        // Select all menu items
+  var menuItems = document.querySelectorAll('.menu-item');
+
+  // Calculate the median index
+  var medianIndex = Math.floor(menuItems.length / 2);
+  
   // Add 'selected-item' class to the median item
   if(menuItems.length > 0) {
     menuItems[medianIndex].classList.add('selected-item');
