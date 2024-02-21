@@ -124,6 +124,10 @@ function centerSelectedItem() {
   const selectedItem = document.querySelector('.selected-item');
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
+
+  if (!selectedItem || menuItems.length === 0) return;
+
+
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
