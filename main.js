@@ -122,15 +122,6 @@ function centerSelectedItem(selectedItem) {
   });
 }
 
-  // Update the selected link class
-  function updateSelectedLink(currentSelected, newSelected) {
-    if (currentSelected) {
-      currentSelected.classList.remove('select');
-    }
-    if (newSelected) {
-      newSelected.classList.add('select');
-    }
-  }
 
   function centerSelectedItem() {
     const menu = document.querySelector('.main-menu');
