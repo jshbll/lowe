@@ -164,9 +164,10 @@ function updateMenuItemsClasses() {
       if (index !== selectedIndex) {
           item.classList.add(`${leftOrRightClass}-${distance}`);
       }
-      else{
-        item.classList.add('selected-item');
-      }
+  // Add 'selected-item' class to the median item
+  if(menuItems.length > 0) {
+    menuItems[medianIndex].classList.add('selected-item');
+}
 
       // Calculate and set translateY for curved appearance
       const translateYValue = calculateTranslateY(distance, itemCount);
