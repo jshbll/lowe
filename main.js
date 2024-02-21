@@ -70,7 +70,7 @@ function rotateNext() {
   menu.appendChild(firstItem);  // Move the first item to the end
  // updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
- // updateMenuItemsClasses();
+  updateMenuItemsClasses();
 }
 
 // Function to move the last item to the beginning of the menu
@@ -80,7 +80,7 @@ function rotatePrevious() {
   menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
  // updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
- // updateMenuItemsClasses();
+  updateMenuItemsClasses();
 }
 
  // Selects the next link in the menu
