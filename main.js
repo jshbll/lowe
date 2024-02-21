@@ -120,25 +120,27 @@ function selectPreviousLink() {
 
 
 // Update Menu Position to center the selected item
-function centerSelectedItem() {
-  const selectedItem = document.querySelector('.selected-item');
+function centerSelectedItem(selectedItem) {
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
 
   if (!selectedItem || menuItems.length === 0) return;
 
-
   const selectedItemOffset = selectedItem.offsetLeft;
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
 
-  // Calculate the scroll position to center the selected item
   let scrollPosition = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
-    // Adjust for even number of menu items
-    if (menuItems.length % 2 === 0) {
-      scrollPosition -= selectedItemWidth / 2;
-    }
+  console.log("Before adjustment:", scrollPosition);
+
+  // Adjust for even number of menu items
+  if (menuItems.length % 2 === 0) {
+    scrollPosition -= selectedItemWidth / 2;
+    console.log("Adjusted for even number of items:", scrollPosition);
+  }
+
+  console.log("Final scroll position:", scrollPosition);
 
   // Smooth scroll to the new position
   menuContainer.scrollTo({
@@ -146,6 +148,7 @@ function centerSelectedItem() {
     behavior: 'smooth'
   });
 }
+
 
 
 
