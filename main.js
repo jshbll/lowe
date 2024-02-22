@@ -162,6 +162,10 @@ function centerSelectedItem() {
   const selectedItemWidth = selectedItem.offsetWidth;
   const menuContainerWidth = menuContainer.offsetWidth;
 
+   console.log("selectedItemOffset:", selectedItemOffset);
+   console.log("selectedItemWidth:", selectedItemWidth);
+   console.log("menuContainerWidth:", menuContainerWidth);
+
   // Calculate the position to center the selected item
   let transformX = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
 
