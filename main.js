@@ -137,7 +137,7 @@ function centerSelectedItem() {
 
   // Adjust for even number of menu items
   if (menuItems.length % 2 === 0) {
-    scrollPosition -= selectedItemWidth / 2;
+    scrollPosition -= selectedItemWidth;
     console.log("Adjusted for even number of items:", scrollPosition);
   }
 
