@@ -155,7 +155,9 @@ function centerSelectedItem() {
   const selectedItem = document.querySelector('.selected-item');
   const menuContainer = document.querySelector('.main-menu');
   const menuItems = document.querySelectorAll('.main-menu .menu-item');
-
+  
+  console.log("menu items:", menuItems.length);
+  
   if (!selectedItem || menuItems.length === 0) return;
 
   const selectedItemOffset = selectedItem.offsetLeft;
