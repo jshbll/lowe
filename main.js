@@ -174,7 +174,7 @@ function centerSelectedItem() {
 
   // Adjust for even number of menu items
   if (menuItems.length % 2 === 0) {
-    transformX -= selectedItemWidth / 2;
+    let transformX = selectedItemWidth / 2;
   }
   console.log("transformX after:", transformX);
 
