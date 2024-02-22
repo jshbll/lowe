@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
-  centerSelectedItem(); // Center the new selected item
   adjustAnchorTextSize();
+  centerSelectedItem(); // Center the new selected item
 
 });
 
