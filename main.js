@@ -170,11 +170,13 @@ function centerSelectedItem() {
 
   // Calculate the position to center the selected item
   let transformX = selectedItemOffset - (menuContainerWidth / 2) + (selectedItemWidth / 2);
+  console.log("transformX before:", transformX);
 
   // Adjust for even number of menu items
   if (menuItems.length % 2 === 0) {
     transformX -= selectedItemWidth / 2;
   }
+  console.log("transformX after:", transformX);
 
   // Apply a CSS transform to the menu container
   menuContainer.style.transform = `translateX(${-transformX}px)`;
