@@ -1,7 +1,17 @@
 
 //main js
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('we good')
+  function isMobileDevice() {
+    return window.innerWidth <= 768;
+    
+}
+
+    // Only run the code if on a mobile device
+    if (isMobileDevice()) {
+      // Your mobile-specific JavaScript code here
+      // Example: 
+      console.log('Running on a mobile device');
+      console.log('we good')
   equalizeMenuItemWidths();
   adjustVH();
 
@@ -19,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
   adjustAnchorTextSize();
   updateMenuItemsClasses(); // Update the menu items classes for the curved appearance
   centerSelectedItem(); // Center the new selected item
+  }
+
+  
 
 });
 
@@ -44,11 +57,9 @@ function equalizeMenuItemWidths() {
   if (menuContainer && menuItems.length > 0) {
       const totalWidth = menuContainer.offsetWidth;
       const equalWidth = totalWidth / menuItems.length;
-
       menuItems.forEach(item => {
           item.style.width = `${equalWidth}px`;
       });
-
   }
 }
 
@@ -64,7 +75,6 @@ function rotateNext() {
   const menu = document.querySelector('.main-menu');
   const firstItem = menu.children[0];
   menu.appendChild(firstItem);  // Move the first item to the end
- // selectNextLink(); // Implement this function to update the 'select' class
   updateMenuItemsClasses();
   centerSelectedItem(); // Center the new selected item
 }
@@ -74,9 +84,7 @@ function rotatePrevious() {
   const menu = document.querySelector('.main-menu');
   const lastItem = menu.children[menu.children.length - 1];
   menu.insertBefore(lastItem, menu.firstChild);  // Move the last item to the start
-  selectPreviousLink(); // Implement this function to update the 'select' class  
   updateMenuItemsClasses();
-  adjustAnchorTextSize();
   centerSelectedItem(); // Center the new selected item
 }
 
@@ -210,13 +218,17 @@ document.querySelectorAll('.trigger.active.left').forEach(element => {
 });
 window.addEventListener('resize', function() {
   console.log('resize-fired!');
-
-  // Call the first function
+  if (isMobileDevice()) {
+    // Re-run or adjust mobile-specific code as needed
+    // Call the first function
   adjustAnchorTextSize();
   equalizeMenuItemWidths();
   updateSelectedLink(); // Implement this function to update the 'select' class
   centerSelectedItem(); // Center the new selected item
   adjustVH();
   equalizeMenuItemWidths();
+}
+
+  
 
 });
