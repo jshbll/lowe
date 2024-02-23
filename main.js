@@ -64,7 +64,7 @@ function rotateNext() {
   const menu = document.querySelector('.main-menu');
   const firstItem = menu.children[0];
   menu.appendChild(firstItem);  // Move the first item to the end
-  selectNextLink(); // Implement this function to update the 'select' class
+ // selectNextLink(); // Implement this function to update the 'select' class
   updateMenuItemsClasses();
 }
 
