@@ -66,6 +66,7 @@ function rotateNext() {
   menu.appendChild(firstItem);  // Move the first item to the end
  // selectNextLink(); // Implement this function to update the 'select' class
   updateMenuItemsClasses();
+  centerSelectedItem(); // Center the new selected item
 }
 
 // Function to move the last item to the beginning of the menu
