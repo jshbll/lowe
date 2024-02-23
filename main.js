@@ -68,7 +68,6 @@ function rotateNext() {
   updateMenuItemsClasses();
   adjustAnchorTextSize();
   centerSelectedItem(); // Center the new selected item
-
 }
 
 // Function to move the last item to the beginning of the menu
@@ -202,17 +201,16 @@ function calculateTranslateY(distance, itemCount) {
  document.querySelectorAll('.trigger.active.right').forEach(element => {
   element.addEventListener('click', function() {
     rotateNext();     // This will move the first item to the end
-   updateMenuItemsClasses();
     selectNextLink(); // This will update the selection based on the new order
+    updateMenuItemsClasses();
   });
 });
 
 document.querySelectorAll('.trigger.active.left').forEach(element => {
   element.addEventListener('click', function() {
     rotatePrevious();     // This will move the first item to the end
-    updateMenuItemsClasses();
-
   selectPreviousLink(); // This will update the selection based on the new order
+  updateMenuItemsClasses();
   });
 });
 window.addEventListener('resize', function() {
